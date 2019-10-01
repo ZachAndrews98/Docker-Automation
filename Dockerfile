@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM archlinux/base
 
 ENV PROJECT_DIR=/home/
 
@@ -8,5 +8,5 @@ WORKDIR ${PROJECT_DIR}
 
 VOLUME ${PROJECT_DIR} ${COMP_DIR}
 
-RUN apt-get update && apt-get upgrade -y && apt-get install sudo -y
+RUN pacman -Sy && pacman -S --noconfirm base
 
