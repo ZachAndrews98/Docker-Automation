@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM debian:bullseye
 
 ENV PROJECT_DIR=/home/
 
@@ -8,5 +8,5 @@ WORKDIR ${PROJECT_DIR}
 
 VOLUME ${PROJECT_DIR} ${COMP_DIR}
 
-RUN apk add --no-cache bash
+RUN apt-get update && apt-get upgrade -y && apt-get install sudo -y
 
