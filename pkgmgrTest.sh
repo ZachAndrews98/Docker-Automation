@@ -37,7 +37,7 @@ else
 fi
 
 sudo usermod -aG docker $USER
-
+newgrp docker
 
 docker run --rm hello-world &>/dev/null
 echo $?
