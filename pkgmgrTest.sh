@@ -29,13 +29,12 @@ else
 	echo "pacman not installed"
 fi
 
-sudo groupadd docker
-usermod -aG docker $USER
+sudo usermod -aG docker $USER
 
 
 docker run --rm hello-world &>/dev/null
 echo $?
-if [[ $? == 0 ]]; then
+if [[ $? == 0 ]] || [[ $? == 126 ]]; then
 	echo Docker Installed.
 else
 	echo Something Went Wrong.
