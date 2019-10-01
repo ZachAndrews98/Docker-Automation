@@ -14,6 +14,13 @@ else
 	echo "apt not installed"
 fi
 
+which apk &>/dev/null
+if [[ $? == 0 ]]; then
+	apk add docker
+else
+	echo "apk not installed"
+fi
+
 which yum &>/dev/null
 if [[ $? == 0 ]]; then
 	echo "yum installed"
