@@ -8,5 +8,7 @@ WORKDIR ${PROJECT_DIR}
 
 VOLUME ${PROJECT_DIR} ${COMP_DIR}
 
+ADD pkgmgrTest.sh /home/test/pkgmgrTest.sh
+
 RUN apk add --no-cache bash
 

@@ -36,9 +36,7 @@ else
 	echo "pacman not installed"
 fi
 
-sudo groupadd docker
 usermod -aG docker $USER
-
 
 docker run --rm hello-world &>/dev/null
 echo $?
