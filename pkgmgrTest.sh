@@ -2,9 +2,6 @@
 
 # checks for existance of individual package managers
 
-echo -n Password:
-read -s password
-
 which apt &>/dev/null # silent run of which command -> no output, no errors
 if [[ $? == 0 ]]; then
 	echo $password | sudo apt-get update
@@ -36,11 +33,11 @@ else
 	echo "pacman not installed"
 fi
 
-usermod -aG docker $USER
+sudo usermod -aG docker $USER
 
 docker run --rm hello-world &>/dev/null
 echo $?
-if [[ $? == 0 ]]; then
+if [[ $? == 0 ]] || [[ $? == 126 ]]; then
 	echo Docker Installed.
 else
 	echo Something Went Wrong.
