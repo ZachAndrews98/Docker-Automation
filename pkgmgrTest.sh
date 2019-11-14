@@ -38,16 +38,13 @@ fi
 
 sudo usermod -aG docker $USER
 newgrp docker
-
-docker run --rm hello-world &>/dev/null
-echo $?
-if [[ $? == 0 ]] || [[ $? == 126 ]]; then
-	echo Docker Installed.
+exit
+docker --version &>/dev/null
+if [[ $? == 0 ]]; then
+	echo Docker Installed
 else
-	echo Something Went Wrong.
+	echo Docker Not Installed
 fi
-docker rmi hello-world &>/dev/null
-echo $?
 
 
 echo Please Reboot Your System.
