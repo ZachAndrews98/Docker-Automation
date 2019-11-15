@@ -2,19 +2,16 @@ import os
 import sys
 import re
 
-FILE_REGEX = '^[a-zA-Z0-9]+\.[a-zA-Z0-9]+$'
+FILE_REGEX = '^[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$'
 
 file_types = {
-    "py": "Python",
-    "java": "Java",
-    "js": "JavaSript",
-    "c": "C",
-    "cs": "C#",
-    "cpp": "C++",
-    "md": "MarkDown",
-    "css": "CSS",
-    "html": "HTML",
-    "txt": "Text File"
+    "py": "python3",
+    "java": "default-jdk",
+    "js": "node",
+    "c": "gcc",
+    "cs": "gcc",
+    "cpp": "gcc",
+    'rb': "ruby",
 }
 
 
@@ -33,16 +30,31 @@ def get_file_types(directory):
             print("\t",file_types[type])
         except:
             print("\t #Unknown Extension: "+type)
+    return types
+
 
 def generate_dockerfile(directory):
+    BASE_IMAGE = "debian:bullseye"
+    DIRECTORY = directory
+    EXTS = get_file_types(directory)
+    INSTALLS = ""
+    for ext in EXTS:
+        try:
+            INSTALLS += file_types[ext] + " "
+        except:
+            pass
+    print(INSTALLS)
     try:
         docfile = open("./" + directory + "/Dockerfile", "w+")
     except FileExistsError:
         print("File Already Exists")
         sys.quit()
+    docfile.write("FROM " + BASE_IMAGE + "\n")
+    docfile.write("ADD ./ test/" + "\n")
+    docfile.write("RUN apt-get update && apt-get upgrade -y && \\\n    apt-get install " + INSTALLS + "-y" + "\n")
     docfile.close()
 
 
 directory = str(input("Enter directory\n"))
-get_file_types(directory)
-# generate_dockerfile(directory)
+# get_file_types(directory)
+generate_dockerfile(directory)
