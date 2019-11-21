@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import docker
 
 FILE_REGEX = '^[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$'
 
@@ -49,12 +50,24 @@ def generate_dockerfile(directory):
     except FileExistsError:
         print("File Already Exists")
         sys.quit()
-    docfile.write("FROM " + BASE_IMAGE + "\n")
-    docfile.write("ADD ./ test/" + "\n")
-    docfile.write("RUN apt-get update && apt-get upgrade -y && \\\n    apt-get install " + INSTALLS + "-y" + "\n")
+    docfile.write("FROM " + BASE_IMAGE + "\n\n")
+    docfile.write("ADD ./ test/" + "\n\n")
+    docfile.write("RUN apt-get update && apt-get upgrade -y && \\\n    apt-get install " + INSTALLS + "-y" + "\n\n")
     docfile.close()
+
+
+def build_image(directory):
+    client = docker.from_env()
+    client.images.build(path=directory, tag="test", rm=True)
+
+
+def run_image(image_name):
+    os.system("gnome-terminal -e 'docker run -it --rm " + image_name + "'")
 
 
 directory = str(input("Enter directory\n"))
 # get_file_types(directory)
-generate_dockerfile(directory)
+# generate_dockerfile(directory)
+print("Building Image. This may take a while")
+# build_image(directory)
+run_image(str(input("Image Name: ")))
