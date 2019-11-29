@@ -8,11 +8,12 @@ FILE_REGEX = '^[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$'
 file_types = {
     "py": "python3",
     "java": "default-jdk",
-    "js": "node",
+    "js": "nodejs",
     "c": "gcc",
     "cs": "gcc",
     "cpp": "gcc",
     'rb': "ruby",
+    'go': "golang",
 }
 
 
@@ -52,7 +53,9 @@ def generate_dockerfile(directory):
         sys.quit()
     docfile.write("FROM " + BASE_IMAGE + "\n\n")
     docfile.write("ADD ./ test/" + "\n\n")
-    docfile.write("RUN apt-get update && apt-get upgrade -y && \\\n    apt-get install " + INSTALLS + "-y" + "\n\n")
+    docfile.write(
+        "RUN apt-get update && apt-get upgrade -y && \\\n    apt-get install " + INSTALLS + "-y" + "\n\n"
+    )
     docfile.close()
 
 
@@ -66,8 +69,7 @@ def run_image(image_name):
 
 
 directory = str(input("Enter directory\n"))
-# get_file_types(directory)
-# generate_dockerfile(directory)
+generate_dockerfile(directory)
 print("Building Image. This may take a while")
-# build_image(directory)
+build_image(directory)
 run_image(str(input("Image Name: ")))
