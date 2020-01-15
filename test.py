@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import docker
+import time
 
 FILE_REGEX = '^[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$'
 
@@ -12,7 +13,7 @@ file_types = {
     "c": "gcc",
     "cs": "gcc",
     "cpp": "gcc",
-    'rb': "ruby",
+    'rb': "ruby-full",
     'go': "golang",
 }
 
@@ -54,18 +55,22 @@ def generate_dockerfile(directory):
     docfile.write("FROM " + BASE_IMAGE + "\n\n")
     docfile.write("ADD ./ test/" + "\n\n")
     docfile.write(
-        "RUN apt-get update && apt-get upgrade -y && \\\n    apt-get install " + INSTALLS + "-y" + "\n\n"
+        "RUN apt update && apt upgrade -y && \\\n" + \
+        "apt install " + INSTALLS + "-y" + "\n\n"
     )
+    docfile.write("CMD cd test && chmod +x testPrograms.sh && ./testPrograms.sh")
     docfile.close()
 
 
 def build_image(directory):
     client = docker.from_env()
+    start = time.time()
     client.images.build(path=directory, tag="test", rm=True)
+    print("Buildtime: " + str(time.time() - start))
 
 
 def run_image(image_name):
-    os.system("gnome-terminal -e 'docker run -it --rm " + image_name + "'")
+    os.system("gnome-terminal --command 'docker run -it --rm " + image_name + "'")
 
 
 directory = str(input("Enter directory\n"))
@@ -73,3 +78,8 @@ generate_dockerfile(directory)
 print("Building Image. This may take a while")
 build_image(directory)
 run_image(str(input("Image Name: ")))
+
+
+
+
+
