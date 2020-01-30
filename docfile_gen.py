@@ -1,8 +1,9 @@
 import os
 import sys
 import re
-import docker
 import time
+
+import docker
 
 FILE_REGEX = '^[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$'
 
@@ -78,8 +79,3 @@ generate_dockerfile(directory)
 print("Building Image. This may take a while")
 build_image(directory)
 run_image(str(input("Image Name: ")))
-
-
-
-
-
