@@ -37,10 +37,9 @@ def get_file_types(directory):
     return types
 
 
-def generate_dockerfile(directory):
+def generate_dockerfile(DIRECTORY, to_dir="test"):
     BASE_IMAGE = "debian:bullseye"
-    DIRECTORY = directory
-    EXTS = get_file_types(directory)
+    EXTS = get_file_types(DIRECTORY)
     INSTALLS = ""
     for ext in EXTS:
         try:
@@ -49,12 +48,12 @@ def generate_dockerfile(directory):
             pass
     print(INSTALLS)
     try:
-        docfile = open("./" + directory + "/Dockerfile", "w+")
+        docfile = open("./" + DIRECTORY + "/Dockerfile", "w+")
     except FileExistsError:
         print("File Already Exists")
         sys.quit()
     docfile.write("FROM " + BASE_IMAGE + "\n\n")
-    docfile.write("ADD ./ test/" + "\n\n")
+    docfile.write("ADD ./ " + to_dir + "/" + "\n\n")
     docfile.write(
         "RUN apt update && apt upgrade -y && \\\n" + \
         "apt install " + INSTALLS + "-y" + "\n\n"
@@ -63,19 +62,20 @@ def generate_dockerfile(directory):
     docfile.close()
 
 
-def build_image(directory):
+def build_image(DIRECTORY, image_name):
     client = docker.from_env()
+    print("Building Image. This may take a while")
     start = time.time()
-    client.images.build(path=directory, tag="test", rm=True)
+    client.images.build(path=DIRECTORY, tag=str(image_name), rm=True)
     print("Buildtime: " + str((time.time() - start)/60))
 
 
-def run_image(image_name):
-    os.system("gnome-terminal --command 'docker run -it --rm " + image_name + "'")
+def run_image(image_name, args=""):
+    os.system("gnome-terminal --command 'docker run -it --rm " + image_name + " " + args + "'")
 
 
 # directory = str(input("Enter directory\n"))
 # generate_dockerfile(directory)
-# print("Building Image. This may take a while")
+#
 # build_image(directory)
 # run_image(str(input("Image Name: ")))
