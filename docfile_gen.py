@@ -74,8 +74,8 @@ def run_image(image_name):
     os.system("gnome-terminal --command 'docker run -it --rm " + image_name + "'")
 
 
-directory = str(input("Enter directory\n"))
-generate_dockerfile(directory)
-print("Building Image. This may take a while")
-build_image(directory)
-run_image(str(input("Image Name: ")))
+# directory = str(input("Enter directory\n"))
+# generate_dockerfile(directory)
+# print("Building Image. This may take a while")
+# build_image(directory)
+# run_image(str(input("Image Name: ")))

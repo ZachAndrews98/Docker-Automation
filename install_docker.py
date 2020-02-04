@@ -7,7 +7,7 @@ import subprocess
 PLATFORM = platform.system()
 
 
-def main():
+def install():
     """ Main installation function """
     if confirm_installation():
         if PLATFORM == "Linux":
@@ -19,11 +19,11 @@ def main():
         if file != "No Instruction Set":
             execute_instructions(file)
         if not confirm_installation():
-            print("Docker successfully installed")
+            return "Docker successfully installed"
         else:
-            print("Issue installing Docker")
+            return "Issue installing Docker"
     else:
-        print("Docker already installed")
+        return "Docker already installed"
 
 
 def get_instructions(distro):
@@ -62,4 +62,4 @@ def confirm_installation():
     return proc.returncode
 
 
-main()
+# main()

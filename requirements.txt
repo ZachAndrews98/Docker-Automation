@@ -1,1 +1,2 @@
 docker>=4.1.0
+ghlinguist>=1.0.1
