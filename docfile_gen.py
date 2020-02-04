@@ -67,7 +67,7 @@ def build_image(directory):
     client = docker.from_env()
     start = time.time()
     client.images.build(path=directory, tag="test", rm=True)
-    print("Buildtime: " + str(time.time() - start))
+    print("Buildtime: " + str((time.time() - start)/60))
 
 
 def run_image(image_name):

@@ -9,16 +9,21 @@ PLATFORM = platform.system()
 
 def main():
     """ Main installation function """
-    if PLATFORM == "Linux":
-        # pylint: disable=W1505
-        distro = platform.linux_distribution()
-    file = get_instructions(distro)
-    if file != "No Instruction Set":
-        execute_instructions(file)
-    if not confirm_installation():
-        print("Docker successfully installed")
+    if confirm_installation():
+        if PLATFORM == "Linux":
+            # pylint: disable=W1505
+            distro = platform.linux_distribution()
+        elif PLATFORM == "MacOS":
+            distro = "MacOS"
+        file = get_instructions(file)
+        if file != "No Instruction Set":
+            execute_instructions(file)
+        if not confirm_installation():
+            print("Docker successfully installed")
+        else:
+            print("Issue installing Docker")
     else:
-        print("Issue installing Docker")
+        print("Docker already installed")
 
 
 def get_instructions(distro):
@@ -32,6 +37,8 @@ def get_instructions(distro):
         file = "./instructions/debian"
     elif distro[0] == "Fedora":
         file = "./instructions/fedora"
+    elif distro[0] == "MacOS":
+        file = "./instructions/macos"
     else:
         file = "No Instruction Set"
     return file
@@ -42,7 +49,7 @@ def execute_instructions(file):
     commands = open(file, 'r')
     for command in commands:
         command = command.replace("\n", "")
-        print(command)
+        # print(command)
         os.system(command)
 
 
