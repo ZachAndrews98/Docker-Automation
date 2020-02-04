@@ -15,15 +15,13 @@ def install():
             distro = platform.linux_distribution()
         elif PLATFORM == "MacOS":
             distro = "MacOS"
-        file = get_instructions(file)
+        file = get_instructions(distro)
         if file != "No Instruction Set":
             execute_instructions(file)
         if not confirm_installation():
             return "Docker successfully installed"
-        else:
-            return "Issue installing Docker"
-    else:
-        return "Docker already installed"
+        return "Issue installing Docker"
+    return "Docker already installed"
 
 
 def get_instructions(distro):
@@ -60,6 +58,3 @@ def confirm_installation():
     # pylint: disable=W0106
     proc.communicate()[0]
     return proc.returncode
-
-
-# main()
