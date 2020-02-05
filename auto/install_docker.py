@@ -59,4 +59,4 @@ def confirm_installation():
     return proc.returncode
 
 
-print(get_instructions(("MacOS","","")))
+# print(get_instructions(("MacOS","","")))
