@@ -1,7 +1,8 @@
 """ Checks OS and installs Docker following a specific instruction set """
 import os
 import platform
-import subprocess
+
+import docker
 
 
 PLATFORM = platform.system()
@@ -9,7 +10,7 @@ PLATFORM = platform.system()
 
 def install():
     """ Main installation function """
-    if confirm_installation():
+    if not confirm_installation():
         if PLATFORM == "Linux":
             # pylint: disable=W1505
             distro = platform.linux_distribution()
@@ -18,7 +19,7 @@ def install():
         file = get_instructions(distro)
         if file != "No Instruction Set":
             execute_instructions(file)
-        if not confirm_installation():
+        if confirm_installation():
             return "Docker successfully installed"
         return "Issue installing Docker"
     return "Docker already installed"
@@ -52,11 +53,14 @@ def execute_instructions(file):
 
 def confirm_installation():
     """ Confirms if Docker was properly installed """
-    proc = subprocess.Popen(
-        ["docker", "run", "hello-world"], stdout=subprocess.PIPE)
-    # pylint: disable=W0106
-    proc.communicate()[0]
-    return proc.returncode
-
-
-# print(get_instructions(("MacOS","","")))
+    installed = False
+    try:
+        client = docker.from_env()
+        if client.containers.run("hello-world:latest", remove=True):
+            installed = True
+        client.images.remove("hello-wold:latest")
+        print("Installed:", installed)
+    # pylint: disable=W0703
+    except BaseException:
+        pass
+    return installed
