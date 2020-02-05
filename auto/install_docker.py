@@ -14,7 +14,7 @@ def install():
             # pylint: disable=W1505
             distro = platform.linux_distribution()
         elif PLATFORM == "MacOS":
-            distro = "MacOS"
+            distro = ("MacOS", "", "")
         file = get_instructions(distro)
         if file != "No Instruction Set":
             execute_instructions(file)
@@ -47,7 +47,6 @@ def execute_instructions(file):
     commands = open(file, 'r')
     for command in commands:
         command = command.replace("\n", "")
-        # print(command)
         os.system(command)
 
 
@@ -58,3 +57,6 @@ def confirm_installation():
     # pylint: disable=W0106
     proc.communicate()[0]
     return proc.returncode
+
+
+print(get_instructions(("MacOS","","")))

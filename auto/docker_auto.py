@@ -1,18 +1,21 @@
 """ Main file for running docker installation, generation, and gui """
-import install_docker
-import docfile_gen
+import sys
+
+from auto import install_docker
+from auto import docfile_gen
 
 
 def main():
     """ Installs Docker and enters command system """
     print(install_docker.install())
-    repl(str(input(">> ")))
+    return repl()
 
 
-def repl(command):
+def repl():
     """ Interactive command system """
-    print(command)
-    if command != ("exit", "quit"):
+    command = str(input(">> "))
+    if command != "exit" and command != "quit":
+        print(command)
         args = command.split(' ')
         if args[0] == "generate":
             directory = get_directory()
@@ -33,13 +36,10 @@ def repl(command):
                 docfile_gen.run_image(image_name, args=args)
             else:
                 docfile_gen.run_image(image_name)
-        repl(str(input(">> ")))
+        repl()
+    return 0
 
 
 def get_directory():
     """ Returns an inputted directory """
     return str(input("Input path to directory:\n"))
-
-
-if __name__ == "__main__":
-    main()

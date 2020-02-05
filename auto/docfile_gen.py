@@ -52,7 +52,7 @@ def generate_dockerfile(directory, to_dir="test"):
         # pylint: disable=W0703
         except BaseException:
             pass
-    print(installs)
+    # print(installs)
     try:
         docfile = open("./" + directory + "/Dockerfile", "w+")
     except FileExistsError:
