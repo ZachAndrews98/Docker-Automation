@@ -11,14 +11,18 @@ def test_install():
     assert install_docker.install() == "Docker already installed"
 
 
-def test_get_instructions():
+distros = [
+    (("Ubuntu", "", ""), "./instructions/ubuntu"),
+    (("CentOS", "", ""), "./instructions/centos"),
+    (("Debian", "", ""), "./instructions/debian"),
+    (("Fedora", "", ""), "./instructions/fedora"),
+    (("MacOS", "", ""), "./instructions/macos"),
+    (("", "", ""), "No Instruction Set")
+]
+@pytest.mark.parametrize("distro, expected",distros)
+def test_get_instructions(distro, expected):
     """ Test Correct Instruction Set Found """
-    assert install_docker.get_instructions(("Ubuntu", "", "")) == "./instructions/ubuntu"
-    assert install_docker.get_instructions(("CentOS", "", "")) == "./instructions/centos"
-    assert install_docker.get_instructions(("Debian", "", "")) == "./instructions/debian"
-    assert install_docker.get_instructions(("Fedora", "", "")) == "./instructions/fedora"
-    assert install_docker.get_instructions(("MacOS", "", "")) == "./instructions/macos"
-    assert install_docker.get_instructions(("","","")) == "No Instruction Set"
+    assert install_docker.get_instructions(distro) == expected
 
 
 def test_confirm_installation():

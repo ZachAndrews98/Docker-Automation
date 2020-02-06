@@ -76,24 +76,17 @@ def build_image(directory, image_name):
         start = time.time()
         client.images.build(path=directory, tag=str(image_name), rm=True)
         print("Buildtime: " + str((time.time() - start) / 60))
-        return 0
+        return True
     else:
         print("No Dockerfile found")
-        return 1
+        return False
 
 
 def run_image(image_name, args=""):
     """ Runs a given image in a separate terminal """
-    success = False
-    try:
-        os.system(
-            "gnome-terminal --command 'docker run -it --rm " +
-            image_name +
-            " " +
-            args +
-            "'")
-        success = True
-    # pylint: diable=W0703
-    except BaseException:
-        pass
-    return success
+    os.system(
+        "gnome-terminal --command 'docker run -it --rm " +
+        image_name +
+        " " +
+        args +
+        "'")

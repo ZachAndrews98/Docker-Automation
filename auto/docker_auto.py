@@ -4,6 +4,8 @@ import sys
 from auto import install_docker
 from auto import docfile_gen
 
+COMMAND_LIST = ["generate", "build", "run", "exit", "quit"]
+
 
 def main():
     """ Installs Docker and enters command system """
@@ -14,6 +16,9 @@ def main():
 def repl():
     """ Interactive command system """
     command = str(input(">> "))
+    while command not in COMMAND_LIST:
+        print("That is not a valid command")
+        command = str(input(">> "))
     if command != "exit" and command != "quit":
         print(command)
         args = command.split(' ')

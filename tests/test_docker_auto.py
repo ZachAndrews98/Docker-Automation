@@ -6,18 +6,31 @@ import io
 from auto import docker_auto
 
 
-def test_main(monkeypatch):
+data = [
+    ("exit", 0)
+]
+@pytest.mark.parametrize("input, expected", data)
+def test_main(input, expected, monkeypatch):
     """ Test main function """
-    monkeypatch.setattr('sys.stdin', io.StringIO('exit'))
-    assert docker_auto.main() == 0
+    monkeypatch.setattr('sys.stdin', io.StringIO(input))
+    assert docker_auto.main() == expected
 
 
-def test_repl(monkeypatch):
+data = [
+    ("exit", 0)
+]
+@pytest.mark.parametrize("input, expected", data)
+def test_repl(input, expected, monkeypatch):
     """ Test Repl function """
-    monkeypatch.setattr('sys.stdin', io.StringIO('exit'))
-    assert docker_auto.repl() == 0
+    monkeypatch.setattr('sys.stdin', io.StringIO(input))
+    assert docker_auto.repl() == expected
 
-def test_get_directory(monkeypatch):
+
+location = [
+    ("../gentest", "../gentest")
+]
+@pytest.mark.parametrize("input, expected", location)
+def test_get_directory(input, expected, monkeypatch):
     """ Test get directory function """
-    monkeypatch.setattr('sys.stdin', io.StringIO('../gentest'))
-    assert docker_auto.get_directory() == "../gentest"
+    monkeypatch.setattr('sys.stdin', io.StringIO(input))
+    assert docker_auto.get_directory() == expected
