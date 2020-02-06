@@ -79,9 +79,16 @@ def build_image(directory, image_name):
 
 def run_image(image_name, args=""):
     """ Runs a given image in a separate terminal """
-    os.system(
-        "gnome-terminal --command 'docker run -it --rm " +
-        image_name +
-        " " +
-        args +
-        "'")
+    success = False
+    try:
+        os.system(
+            "gnome-terminal --command 'docker run -it --rm " +
+            image_name +
+            " " +
+            args +
+            "'")
+        success = True
+    # pylint: diable=W0703
+    except BaseException:
+        pass
+    return success

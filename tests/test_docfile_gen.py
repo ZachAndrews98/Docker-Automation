@@ -14,3 +14,8 @@ def test_generate_dockerfile():
     """ Checks if the proper Dockerfile is created """
     docfile_gen.generate_dockerfile('./gentest')
     assert path.exists("./gentest/Dockerfile") == True
+
+
+def test_run_image():
+    """ Checks if a separate terminal and Docker image can be run """
+    assert docfile_gen.run_image("hello-world:latest") == True
