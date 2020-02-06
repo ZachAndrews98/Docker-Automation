@@ -70,11 +70,16 @@ def generate_dockerfile(directory, to_dir="test"):
 
 def build_image(directory, image_name):
     """ Builds an image based on the path to a Dockerfile """
-    client = docker.from_env()
-    print("Building Image. This may take a while")
-    start = time.time()
-    client.images.build(path=directory, tag=str(image_name), rm=True)
-    print("Buildtime: " + str((time.time() - start) / 60))
+    if os.path.exists(directory + "/Dockerfile"):
+        client = docker.from_env()
+        print("Building Image. This may take a while")
+        start = time.time()
+        client.images.build(path=directory, tag=str(image_name), rm=True)
+        print("Buildtime: " + str((time.time() - start) / 60))
+        return 0
+    else:
+        print("No Dockerfile found")
+        return 1
 
 
 def run_image(image_name, args=""):

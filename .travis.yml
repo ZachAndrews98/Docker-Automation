@@ -7,4 +7,5 @@ install:
   - pipenv install
 script:
   - pipenv run pylint *.py
+  - pipenv run pycodestyle *.py
   - pipenv run pytest tests

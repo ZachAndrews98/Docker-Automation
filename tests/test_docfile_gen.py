@@ -19,3 +19,9 @@ def test_generate_dockerfile():
 def test_run_image():
     """ Checks if a separate terminal and Docker image can be run """
     assert docfile_gen.run_image("hello-world:latest") == True
+
+
+def test_build_image():
+    """ Checks if building an image works properly """
+    assert docfile_gen.build_image("./instructions", "") == 1
+    assert docfile_gen.build_image("./gentest", "test") == 0
