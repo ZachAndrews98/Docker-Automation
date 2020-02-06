@@ -1,3 +1,0 @@
-docker>=4.1.0
-pylint>=2.4.4
-autopep8>=1.5
