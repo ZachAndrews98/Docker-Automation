@@ -6,11 +6,12 @@ import io
 from auto import install_docker
 
 
-# def test_install(monkeypatch):
-#     """ Test Install Method """
-#     monkeypatch.setattr('PLATFORM', io.StringIO('Linux'))
-#     monkeypatch.setattr('distro', io.StringIO(("Ubuntu", "", "")))
-#     assert install_docker.install() == "Docker successfully installed"
+def test_install():
+    """ Test Install Method """
+    # monkeypatch.setattr('PLATFORM', io.StringIO('Linux'))
+    # monkeypatch.setattr('distro', io.StringIO(("Ubuntu", "", "")))
+    assert install_docker.install() == "Docker already installed"
+    
 
 def test_get_instructions():
     """ Test Correct Instruction Set Found """
