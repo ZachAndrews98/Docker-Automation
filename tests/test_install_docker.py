@@ -20,3 +20,8 @@ def test_get_instructions():
     assert install_docker.get_instructions(("Fedora", "", "")) == "./instructions/fedora"
     assert install_docker.get_instructions(("MacOS", "", "")) == "./instructions/macos"
     assert install_docker.get_instructions(("","","")) == "No Instruction Set"
+
+
+def test_confirm_installation():
+    """ Test Installation Confirmation """
+    assert install_docker.confirm_installation() == True
