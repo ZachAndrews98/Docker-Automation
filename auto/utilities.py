@@ -59,13 +59,15 @@ def list_containers(filters={}, all=True):
     return None
 
 
-def delete_image(image_name):
+def delete_image(images):
     """ Delete a given image(s) from the machine """
     client = docker.from_env()
-    try:
-        client.images.remove(image_name)
-    except BaseException:
-        return "Unable to remove image: " + image_name + " must force"
+    for image in images:
+        try:
+            client.images.remove(image)
+        except BaseException:
+            return "Unable to remove image: " + image_name + " must force"
+    
 
 
 def delete_container(containers):

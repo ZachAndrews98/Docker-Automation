@@ -68,7 +68,7 @@ def repl():
                 remove_type = command[1]
 
             if remove_type == "image":
-                image_name = str(input("Image to remove: "))
+                image_name = str(input("Image to remove: ")).strip(),split(',')
                 utilities.delete_image(image_name)
             elif remove_type == "container":
                 container_name = str(input("Container to remove: ")).strip().split(',')
