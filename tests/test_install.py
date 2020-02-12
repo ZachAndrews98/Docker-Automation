@@ -3,12 +3,12 @@ import pytest
 
 import io
 
-from auto import install_docker
+from auto import install
 
 
 def test_install():
     """ Test Install Method """
-    assert install_docker.install() == "Docker already installed"
+    assert install.install() == "Docker already installed"
 
 
 distros = [
@@ -22,9 +22,9 @@ distros = [
 @pytest.mark.parametrize("distro, expected",distros)
 def test_get_instructions(distro, expected):
     """ Test Correct Instruction Set Found """
-    assert install_docker.get_instructions(distro) == expected
+    assert install.get_instructions(distro) == expected
 
 
 def test_confirm_installation():
     """ Test Installation Confirmation """
-    assert install_docker.confirm_installation() == True
+    assert install.confirm_installation() == True

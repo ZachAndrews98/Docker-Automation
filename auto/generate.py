@@ -2,7 +2,6 @@
 import os
 import sys
 import re
-import time
 
 import docker
 
@@ -66,27 +65,3 @@ def generate_dockerfile(directory, to_dir="test"):
     docfile.write(
         "CMD cd test && chmod +x testPrograms.sh && ./testPrograms.sh")
     docfile.close()
-
-
-def build_image(directory, image_name):
-    """ Builds an image based on the path to a Dockerfile """
-    if os.path.exists(directory + "/Dockerfile"):
-        client = docker.from_env()
-        print("Building Image. This may take a while")
-        start = time.time()
-        client.images.build(path=directory, tag=str(image_name), rm=True)
-        print("Buildtime: " + str((time.time() - start) / 60))
-        return True
-    else:
-        print("No Dockerfile found")
-        return False
-
-
-def run_image(image_name, args=""):
-    """ Runs a given image in a separate terminal """
-    os.system(
-        "gnome-terminal --command 'docker run -it --rm " +
-        image_name +
-        " " +
-        args +
-        "'")
