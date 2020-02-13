@@ -89,6 +89,7 @@ def delete_container():
     return redirect(url_for("home"))
 
 
+# pylint: disable=W0622
 def exit():
     """ Shutdown interface """
     func = request.environ.get('werkzeug.server.shutdown')
@@ -96,9 +97,11 @@ def exit():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
+
 @APP.route('/exit', methods=['POST'])
 def shutdown():
     """ Path to shutdown interface """
+    # pylint: disable=R1722
     exit()
     return 'Interface Shutting Down'
 
