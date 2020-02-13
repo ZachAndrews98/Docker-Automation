@@ -1,17 +1,9 @@
 """ Main file for running docker installation, generation, and gui """
 import sys
 
-from auto import install
-from auto import generate
-from auto import utilities
+from auto import install, generate, utilities
 
 COMMAND_LIST = ["generate", "build", "run", "exit", "quit", "delete", "list"]
-
-
-# def main():
-#     """ Installs Docker and enters command system """
-#     print(install.install())
-#     return repl()
 
 
 def repl():

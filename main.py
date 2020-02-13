@@ -67,9 +67,9 @@ def run_container():
     container_name = request.form['run_container_name']
     args = request.form['run_container_args']
     if args != "":
-        utilities.run_image(container_name, args=args)
+        utilities.run_container(container_name, args=args)
     else:
-        utilities.run_image(container_name)
+        utilities.run_container(container_name)
     return redirect(url_for("home"))
 
 
@@ -98,12 +98,12 @@ def exit():
     func()
 
 
-@APP.route('/exit', methods=['POST'])
+@APP.route('/shutdown', methods=['POST'])
 def shutdown():
     """ Path to shutdown interface """
     # pylint: disable=R1722
     exit()
-    return 'Interface Shutting Down'
+    return render_template("exit.html")
 
 
 if __name__ == "__main__":
