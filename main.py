@@ -3,10 +3,7 @@ import sys
 
 from flask import Flask, render_template, request, redirect, url_for
 
-from auto import docker_auto
-from auto import generate
-from auto import install
-from auto import utilities
+from auto import docker_auto, generate, install, utilities
 
 
 APP = Flask(__name__)
@@ -25,11 +22,17 @@ def home():
                            containers=container_list)
 
 
+@APP.route('/update', methods=['POST'])
+def update():
+    """ Update the interface """
+    return redirect(url_for("home"))
+
+
 @APP.route('/generate_doc', methods=['POST'])
 def generate_doc():
     """ Path to call dockerfile generator """
-    directory = request.form['directory']
-    to_dir = request.form['to_dir']
+    directory = request.form['generate_dir']
+    to_dir = request.form['generate_to_dir']
     if to_dir != "":
         generate.generate_dockerfile(directory, to_dir=to_dir)
     else:
@@ -49,15 +52,31 @@ def build():
 @APP.route('/run_image', methods=['POST'])
 def run_image():
     """ Path to call run image """
-    image_name = request.form['run']
-    utilities.run_image(image_name)
+    image_name = request.form['run_image_name']
+    args = request.form['run_image_args']
+    if args != "":
+        utilities.run_image(image_name, args=args)
+    else:
+        utilities.run_image(image_name)
+    return redirect(url_for("home"))
+
+
+@APP.route('/run_container', methods=['POST'])
+def run_container():
+    """ Path to call run container """
+    container_name = request.form['run_container_name']
+    args = request.form['run_container_args']
+    if args != "":
+        utilities.run_image(container_name, args=args)
+    else:
+        utilities.run_image(container_name)
     return redirect(url_for("home"))
 
 
 @APP.route('/delete_image', methods=['POST'])
 def delete_image():
     """ Path to delete image """
-    image_name = request.form['imageDelete']
+    image_name = request.form['delete_image_name']
     utilities.delete_image(image_name.strip().split(','))
     return redirect(url_for("home"))
 
@@ -65,9 +84,23 @@ def delete_image():
 @APP.route('/delete_container', methods=['POST'])
 def delete_container():
     """ Path to delete container """
-    container_name = request.form['containerDelete']
+    container_name = request.form['delete_container_name']
     utilities.delete_container(container_name.strip().split(','))
     return redirect(url_for("home"))
+
+
+def exit():
+    """ Shutdown interface """
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+@APP.route('/exit', methods=['POST'])
+def shutdown():
+    """ Path to shutdown interface """
+    exit()
+    return 'Interface Shutting Down'
 
 
 if __name__ == "__main__":

@@ -2,32 +2,44 @@
 <title>test</title>
 <p>Images: {{ images }}</p>
 <p>Containers: {{ containers }}</p>
-
+<form action="/update" method="POST" name="Update">
+  <button>Update</button>
+</form>
+<br>
 <div style="width: 25%; float:left;">
-  <form action="/run_image" method="POST" name="Run">
-    <input name="run" placeholder="Image to Run">
+  <form action="/run_image" method="POST" name="Run_Image">
+    <input name="run_image_name" placeholder="Image to Run">
+    <input name="run_image_args" placeholder="(optional) Arguments">
     <input type="submit">
   </form>
 </div>
 <div style="width: 25%; float:left;">
-  <form action="/delete_image" method="POST" name="ImageDelete">
-    <input name="imageDelete" placeholder="Image to Delete">
+  <form action="/run_container" method="POST" name="Run_Container">
+    <input name="run_container_name" placeholder="Container to Run">
+    <input name="run_container_args" placeholder="(optional) Arguments">
     <input type="submit">
   </form>
 </div>
 <div style="width: 25%; float:left;">
-  <form action="/delete_container" method="POST" name="ContainerDelete">
-    <input name="containerDelete" placeholder="Container to Delete">
+  <form action="/delete_image" method="POST" name="Delete_Image">
+    <input name="delete_image_name" placeholder="Image to Delete">
+    <input type="submit">
+  </form>
+</div>
+<div style="width: 25%; float:left;">
+  <form action="/delete_container" method="POST" name="Delete_Container">
+    <input name="delete_container_name" placeholder="Container to Delete">
     <input type="submit">
   </form>
 </div>
 <div style="width: 25%; float:left;">
   <form action="/generate_doc" method="POST" name="Generate">
-    <input name="directory" placeholder="Path to directory">
-    <input name="to_dir" placeholder="(optional) Path to mount files to">
+    <input name="generate_dir" placeholder="Path to directory">
+    <input name="generate_to_dir" placeholder="(optional) Path to mount files to">
     <input type="submit">
   </form>
 </div>
+
 <div style="width: 25%; float:left;">
   <form action="/build" method="POST" name="Build">
     <input name="build_path" placeholder="Path to directory">
@@ -35,3 +47,7 @@
     <input type="submit">
   </form>
 </div>
+
+<form action="/exit" method="POST">
+  <button>Exit</button>
+</form>
