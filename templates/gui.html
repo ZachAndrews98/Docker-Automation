@@ -1,0 +1,37 @@
+<!doctype HTML>
+<title>test</title>
+<p>Images: {{ images }}</p>
+<p>Containers: {{ containers }}</p>
+
+<div style="width: 25%; float:left;">
+  <form action="/run_image" method="POST" name="Run">
+    <input name="run" placeholder="Image to Run">
+    <input type="submit">
+  </form>
+</div>
+<div style="width: 25%; float:left;">
+  <form action="/delete_image" method="POST" name="ImageDelete">
+    <input name="imageDelete" placeholder="Image to Delete">
+    <input type="submit">
+  </form>
+</div>
+<div style="width: 25%; float:left;">
+  <form action="/delete_container" method="POST" name="ContainerDelete">
+    <input name="containerDelete" placeholder="Container to Delete">
+    <input type="submit">
+  </form>
+</div>
+<div style="width: 25%; float:left;">
+  <form action="/generate_doc" method="POST" name="Generate">
+    <input name="directory" placeholder="Path to directory">
+    <input name="to_dir" placeholder="(optional) Path to mount files to">
+    <input type="submit">
+  </form>
+</div>
+<div style="width: 25%; float:left;">
+  <form action="/build" method="POST" name="Build">
+    <input name="build_path" placeholder="Path to directory">
+    <input name="build_name" placeholder="Name of image">
+    <input type="submit">
+  </form>
+</div>

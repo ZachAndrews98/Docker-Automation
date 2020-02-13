@@ -66,8 +66,7 @@ def delete_image(images):
         try:
             client.images.remove(image)
         except BaseException:
-            return "Unable to remove image: " + image_name + " must force"
-    
+            print("Unable to remove image: " + image)
 
 
 def delete_container(containers):
@@ -75,6 +74,6 @@ def delete_container(containers):
     client = docker.from_env()
     for container in containers:
         try:
-            client.containers.get(container).remove()
+            client.containers.get(container.strip()).remove()
         except BaseException:
-            pass
+            print("Unable to delete: " + container)

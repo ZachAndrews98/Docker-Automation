@@ -11,6 +11,7 @@ pylint = ">=2.4.4"
 autopep8 = ">=1.5"
 pytest = "*"
 pycodestyle = "*"
+flask = "*"
 
 [requires]
 python_version = "3.6"
