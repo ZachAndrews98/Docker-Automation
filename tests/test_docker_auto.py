@@ -6,14 +6,14 @@ import io
 from auto import docker_auto
 
 
-data = [
-    ("exit", 0)
-]
-@pytest.mark.parametrize("input, expected", data)
-def test_main(input, expected, monkeypatch):
-    """ Test main function """
-    monkeypatch.setattr('sys.stdin', io.StringIO(input))
-    assert docker_auto.main() == expected
+# data = [
+#     ("exit", 0)
+# ]
+# @pytest.mark.parametrize("input, expected", data)
+# def test_main(input, expected, monkeypatch):
+#     """ Test main function """
+#     monkeypatch.setattr('sys.stdin', io.StringIO(input))
+#     assert docker_auto.main() == expected
 
 
 data = [
