@@ -3,3 +3,20 @@
   display: table;
   clear: both;
 }
+
+.column {
+  float: left;
+  text-align: center;
+}
+
+body {
+  /* background-color: blue; */
+}
+
+button {
+  margin-top: 5px;
+}
+
+input {
+  margin-top: 5px;
+}

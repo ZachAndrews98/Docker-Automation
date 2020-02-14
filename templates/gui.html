@@ -6,13 +6,13 @@
 
 <body>
   <div class="row">
-    <div style="width:10%; float:left;">
+    <div class="column" style="width:10%;">
       <br>
       <form action="/update" method="POST" name="Update">
         <button>Update</button>
       </form>
     </div>
-    <div style="width:10%; float:left;">
+    <div class="column" style="width:10%;">
       <br>
       <form action="/shutdown" method="POST">
         <button>Shutdown</button>
@@ -23,59 +23,59 @@
       <p>Containers: {{ containers }}</p>
     </div>
   </div>
-  <div style="width:60%;">
+  <div class="column" style="width:60%;">
     <br>
     <div class="row">
-      <div style="width: 30%; float:left;">
+      <div class="column" style="width: 30%;">
         <h3>Run Image</h3>
         <form action="/run_image" method="POST" name="Run_Image">
           <input name="run_image_name" placeholder="Image to Run">
           <input name="run_image_args" placeholder="(optional) Arguments">
-          <input type="submit">
+          <button>Run Image</button>
         </form>
       </div>
-      <div style="width: 30%; float:left;">
+      <div class="column" style="width: 30%;">
         <h3>Run Container</h3>
         <form action="/run_container" method="POST" name="Run_Container">
           <input name="run_container_name" placeholder="Container to Run">
           <input name="run_container_args" placeholder="(optional) Arguments">
-          <input type="submit">
+          <button>Run Container</button>
         </form>
       </div>
     </div>
     <div class="row">
-      <div style="width: 30%; float:left;">
+      <div class="column" style="width: 30%;">
         <h3>Delete Image</h3>
         <form action="/delete_image" method="POST" name="Delete_Image">
           <input name="delete_image_name" placeholder="Image to Delete">
-          <input type="submit">
+          <button>Delete Image</button>
         </form>
       </div>
-      <div style="width: 30%; float:left;">
+      <div class="column" style="width: 30%;">
         <h3>Delete Container</h3>
         <form action="/delete_container" method="POST" name="Delete_Container">
           <input name="delete_container_name" placeholder="Container to Delete">
-          <input type="submit">
+          <button>Delete Container</button>
         </form>
       </div>
     </div>
 
     <div class="row">
-      <div style="width: 30%; float:left;">
+      <div class="column" style="width: 30%;">
         <h3>Generate Dockerfile</h3>
         <form action="/generate_doc" method="POST" name="Generate">
           <input name="generate_dir" placeholder="Path to directory">
           <input name="generate_to_dir" placeholder="(optional) Path to mount files to">
-          <input type="submit">
+          <button>Genereate Dockerfile</button>
         </form>
       </div>
 
-      <div style="width: 30%; float:left;">
+      <div class="column" style="width: 30%;">
         <h3>Build Image</h3>
         <form action="/build" method="POST" name="Build">
           <input name="build_path" placeholder="Path to directory">
           <input name="build_name" placeholder="Name of image">
-          <input type="submit">
+          <button>Build Image</button>
         </form>
       </div>
     </div>
