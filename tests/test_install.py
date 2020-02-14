@@ -8,7 +8,7 @@ from auto import install
 
 def test_install():
     """ Test Install Method """
-    assert install.install() == "Docker already installed"
+    assert install.install() == "Docker already installed."
 
 
 distros = [
