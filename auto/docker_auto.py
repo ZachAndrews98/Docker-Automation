@@ -1,7 +1,7 @@
 """ Main file for running docker installation, generation, and gui """
 import sys
 
-from auto import install, generate, utilities
+from auto import install, generate, images, containers
 
 COMMAND_LIST = ["generate", "build", "run", "exit", "quit", "delete", "list"]
 
@@ -24,7 +24,7 @@ def repl():
                 generate.generate_dockerfile(directory)
 
         elif command[0] == "build":
-            utilities.build_image(
+            images.build_image(
                 get_directory(), str(
                     input("Input image name: ")))
 
@@ -40,16 +40,16 @@ def repl():
                 image_name = str(input("Image Name: "))
                 args = str(input("Arguments: "))
                 if args != "":
-                    utilities.run_image(image_name, args=args)
+                    images.run_image(image_name, args=args)
                 else:
-                    utilities.run_image(image_name)
+                    images.run_image(image_name)
             elif run_type == "container":
                 container_name = str(input("Container Name: "))
                 args = str(input("Arguments: "))
                 if args != "":
-                    utilities.run_container(container_name, args=args)
+                    containers.run_container(container_name, args=args)
                 else:
-                    utilities.run_container(container_name)
+                    containers.run_container(container_name)
 
         elif command[0] == "delete":
             if len(command) < 2 or command[1] not in ("image", "container"):
@@ -61,10 +61,10 @@ def repl():
 
             if remove_type == "image":
                 image_name = str(input("Image to remove: ")).strip(),split(',')
-                utilities.delete_image(image_name)
+                images.delete_image(image_name)
             elif remove_type == "container":
                 container_name = str(input("Container to remove: ")).strip().split(',')
-                utilities.delete_container(container_name)
+                containers.delete_container(container_name)
 
         elif command[0] == "list":
             if len(command) < 2 or command[1] not in ("images", "containers"):
@@ -75,14 +75,14 @@ def repl():
                 list_type = command[1]
 
             if list_type == "images":
-                images = utilities.list_images()
+                images = images.list_images()
                 if images is not None:
                     for image in images:
                         print(image)
                 else:
                     print("None")
             elif list_type == "containers":
-                containers = utilities.list_containers()
+                containers = containers.list_containers()
                 if containers is not None:
                     for container in containers:
                         print(container)

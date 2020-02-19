@@ -4,7 +4,7 @@ import webbrowser
 
 from flask import Flask, render_template, request, redirect, url_for
 
-from auto import docker_auto, generate, install, utilities
+from auto import docker_auto, generate, install, images, containers
 
 
 APP = Flask(__name__)
@@ -13,10 +13,10 @@ APP = Flask(__name__)
 @APP.route('/')
 def home():
     """ Homepage of web interface """
-    image_list = utilities.list_images()
+    image_list = images.list_images()
     if image_list is not None:
         image_list = ', '.join(image_list)
-    container_list = utilities.list_containers()
+    container_list = containeres.list_containers()
     if container_list is not None:
         container_list = ', '.join(container_list)
     return render_template('gui.html', images=image_list,
@@ -46,7 +46,7 @@ def build():
     """ Path to call image builder """
     directory = request.form['build_path']
     name = request.form['build_name']
-    utilities.build_image(directory, name)
+    images.build_image(directory, name)
     return redirect(url_for("home"))
 
 
@@ -56,9 +56,9 @@ def run_image():
     image_name = request.form['run_image_name']
     args = request.form['run_image_args']
     if args != "":
-        utilities.run_image(image_name, args=args)
+        images.run_image(image_name, args=args)
     else:
-        utilities.run_image(image_name)
+        images.run_image(image_name)
     return redirect(url_for("home"))
 
 
@@ -68,9 +68,9 @@ def run_container():
     container_name = request.form['run_container_name']
     args = request.form['run_container_args']
     if args != "":
-        utilities.run_container(container_name, args=args)
+        containers.run_container(container_name, args=args)
     else:
-        utilities.run_container(container_name)
+        containers.run_container(container_name)
     return redirect(url_for("home"))
 
 
@@ -78,7 +78,7 @@ def run_container():
 def delete_image():
     """ Path to delete image """
     image_name = request.form['delete_image_name']
-    utilities.delete_image(image_name.strip().split(','))
+    images.delete_image(image_name.strip().split(','))
     return redirect(url_for("home"))
 
 
@@ -86,7 +86,7 @@ def delete_image():
 def delete_container():
     """ Path to delete container """
     container_name = request.form['delete_container_name']
-    utilities.delete_container(container_name.strip().split(','))
+    containers.delete_container(container_name.strip().split(','))
     return redirect(url_for("home"))
 
 

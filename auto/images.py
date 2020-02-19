@@ -1,17 +1,35 @@
-""" Docker utilites """
-
-"""
-TODO:
-Login to Docker
-Contianers- Build, stop, kill, restart
-Images- Pull, Push, Tag
-"""
+""" Image Utilites """
 
 import os
 import subprocess
 import time
 
 import docker
+
+
+def login(user, passwd):
+    """ Login to Docker """
+    client = docker.from_env()
+    client.login(username=user, password=passwd)
+
+
+def pull_image(image_name, tag):
+    """ Pull a docker image """
+    client = docker.from_env()
+    if tag != "":
+        client.images.pull(image_name, tag=tag)
+    else:
+        client.images.pull(image_name)
+
+
+def push_image(image_name, tag):
+    """ Push a docker image """
+    client = docker.from_env()
+    if tag != "":
+        client.images.push(image_name, tag=tag)
+    else:
+        client.images.push(image_name)
+
 
 def build_image(directory, image_name):
     """ Builds an image based on the path to a Dockerfile """
@@ -35,13 +53,6 @@ def run_image(image_name, args=""):
     subprocess.call(command, shell=True)
 
 
-def run_container(container_name, args=""):
-    """ Runs a given container in a separate terminal """
-    base_command = "docker start " + args + " " + container_name
-    command = "gnome-terminal --command '" + base_command + "'"
-    subprocess.call(command, shell=True)
-
-
 def list_images(name="", all=False):
     """ Return the images on the machine """
     client = docker.from_env()
@@ -54,18 +65,6 @@ def list_images(name="", all=False):
     return None
 
 
-def list_containers(filters={}, all=True):
-    """ Return the conatiners on the machine """
-    client = docker.from_env()
-    raw_containers = client.containers.list(filters={}, all=all)
-    containers = list()
-    for container in raw_containers:
-        containers.append(container.name)
-    if containers != []:
-        return containers
-    return None
-
-
 def delete_image(images):
     """ Delete a given image(s) from the machine """
     client = docker.from_env()
@@ -74,13 +73,3 @@ def delete_image(images):
             client.images.remove(image)
         except BaseException:
             print("Unable to remove image: " + image)
-
-
-def delete_container(containers):
-    """ Delete a given container(s) from the machine """
-    client = docker.from_env()
-    for container in containers:
-        try:
-            client.containers.get(container.strip()).remove()
-        except BaseException:
-            print("Unable to delete: " + container)
