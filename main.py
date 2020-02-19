@@ -1,4 +1,5 @@
 """ Run Docker Automation and Setup Program """
+
 import sys
 import webbrowser
 
@@ -16,7 +17,7 @@ def home():
     image_list = images.list_images()
     if image_list is not None:
         image_list = ', '.join(image_list)
-    container_list = containeres.list_containers()
+    container_list = containers.list_containers()
     if container_list is not None:
         container_list = ', '.join(container_list)
     return render_template('gui.html', images=image_list,

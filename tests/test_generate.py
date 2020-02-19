@@ -1,4 +1,5 @@
 """ Test Dockerfile Generation methods """
+
 import pytest
 
 from auto import generate

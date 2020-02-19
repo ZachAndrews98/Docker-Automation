@@ -13,13 +13,11 @@ def login(user, passwd):
     client.login(username=user, password=passwd)
 
 
-def pull_image(image_name, tag):
+def pull_image(image_name, tag="latest"):
     """ Pull a docker image """
     client = docker.from_env()
-    if tag != "":
-        client.images.pull(image_name, tag=tag)
-    else:
-        client.images.pull(image_name)
+    return client.images.pull(image_name, tag=tag)
+    # return client.images.pull(image_name)
 
 
 def push_image(image_name, tag):
@@ -73,3 +71,7 @@ def delete_image(images):
             client.images.remove(image)
         except BaseException:
             print("Unable to remove image: " + image)
+
+
+if __name__ == "__main__":
+    print(isinstance(pull_image("hello-world"), docker.models.images.Image))

@@ -1,4 +1,5 @@
 """ Test Docker Automation methods """
+
 import pytest
 
 import io
