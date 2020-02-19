@@ -1,5 +1,12 @@
 """ Docker utilites """
 
+"""
+TODO:
+Login to Docker
+Contianers- Build, stop, kill, restart
+Images- Pull, Push, Tag
+"""
+
 import os
 import subprocess
 import time

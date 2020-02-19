@@ -1,5 +1,6 @@
 """ Run Docker Automation and Setup Program """
 import sys
+import webbrowser
 
 from flask import Flask, render_template, request, redirect, url_for
 
@@ -111,5 +112,6 @@ if __name__ == "__main__":
         print(install.install())
         docker_auto.repl()
     else:
-        install.install()
+        print(install.install())
+        webbrowser.open("http://localhost:5000")
         APP.run()
