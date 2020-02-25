@@ -3,6 +3,7 @@
 import os
 import subprocess
 import time
+import threading
 
 import docker
 
@@ -34,14 +35,18 @@ def build_image(directory, image_name):
     if os.path.exists(directory + "/Dockerfile"):
         client = docker.from_env()
         print("Building Image. This may take a while")
-        start = time.time()
-        client.images.build(path=directory, tag=str(image_name), rm=True)
-        print("Buildtime: " + str((time.time() - start) / 60))
+        # start = time.time()
+        thread = threading.Thread(target=build_thread, args=(directory, image_name))
+        thread.start()
+        # print("Buildtime: " + str((time.time() - start) / 60))
         return True
     else:
-        print("No Dockerfile found")
+        print("No Dockerfile found in " + directory)
         return False
 
+def build_thread(directory, image_name):
+    client = docker.from_env()
+    client.images.build(path=directory, tag=str(image_name), rm=True)
 
 def run_image(image_name, args=""):
     """ Runs a given image in a separate terminal """
@@ -73,5 +78,5 @@ def delete_image(images):
             print("Unable to remove image: " + image)
 
 
-if __name__ == "__main__":
-    print(isinstance(pull_image("hello-world"), docker.models.images.Image))
+# if __name__ == "__main__":
+    # print(isinstance(pull_image("hello-world"), docker.models.images.Image))

@@ -7,7 +7,7 @@ import docker
 
 data = [
     ("./instructions", "test", False),
-    ("./gentest", "test", True)
+    ("./gentest2", "test", True)
 ]
 @pytest.mark.parametrize("path, name, expected", data)
 def test_build_image(path, name, expected):
@@ -25,7 +25,7 @@ def test_pull_image(image_name, tag, expected):
 
 
 data = [
-    (["test:latest", "debian:bullseye", "hello-world:latest"])
+    (["hello-world:latest"])
 ]
 @pytest.mark.parametrize("expected", data)
 def test_list_images(expected):

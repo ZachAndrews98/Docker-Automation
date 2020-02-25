@@ -2,14 +2,20 @@
 
 import sys
 
-from auto import install, generate, images, containers
-
 COMMAND_LIST = ["generate", "build", "run", "exit", "quit", "delete", "list"]
 
 
 def repl():
     """ Interactive command system """
+
+    from auto import install
+    from auto import generate
+    from auto import images
+    from auto import containers
+    import threading
+
     command = str(input(">> ")).split(' ')
+    # images.build_thread("./gentest", "test")
     while command[0] not in COMMAND_LIST:
         print("That is not a valid command")
         command = str(input(">> "))
@@ -25,9 +31,15 @@ def repl():
                 generate.generate_dockerfile(directory)
 
         elif command[0] == "build":
-            images.build_image(
-                get_directory(), str(
-                    input("Input image name: ")))
+            # build = threading.Thread(
+            #     target=images.build_image,
+            #     args = (
+            #         get_directory(), str(
+            #         input("Input image name: "))
+            #     )
+            # )
+            # build.start()
+            images.build_image(get_directory(), str(input("Input image name: ")))
 
         elif command[0] == "run":
             if len(command) < 2 or command[1] not in ("image", "container"):

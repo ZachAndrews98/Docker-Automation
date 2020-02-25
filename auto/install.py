@@ -1,4 +1,5 @@
 """ Checks OS and installs Docker following a specific instruction set """
+
 import os
 import platform
 
@@ -16,6 +17,9 @@ def install():
             distro = platform.linux_distribution()
         elif PLATFORM == "MacOS":
             distro = ("MacOS", "", "")
+        elif PLATFORM == "windows":
+            pass
+            # TODO: figure out method to determine home vs pro
         file = get_instructions(distro)
         if file != "No Instruction Set":
             execute_instructions(file)

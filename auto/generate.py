@@ -63,6 +63,6 @@ def generate_dockerfile(directory, to_dir="test"):
         "RUN apt update && apt upgrade -y && \\\n" +
         "apt install " + installs + "-y" + "\n\n"
     )
-    docfile.write(
-        "CMD cd test && chmod +x testPrograms.sh && ./testPrograms.sh")
+    # docfile.write(
+    #     "CMD cd test && chmod +x testPrograms.sh && ./testPrograms.sh")
     docfile.close()
