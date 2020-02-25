@@ -46,7 +46,7 @@ def restart_container(container_name):
     container.restart()
 
 
-def create_container(image_name, args):
+def build_container(image_name, args):
     """ Create a container, but do not run it """
     client = docker.from_env()
     return isinstance(client.containers.create(image_name, command=args),

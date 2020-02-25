@@ -2,7 +2,22 @@
 
 import sys
 
-COMMAND_LIST = ["generate", "build", "run", "exit", "quit", "delete", "list"]
+COMMAND_LIST = [
+    "generate",
+    "build",
+    "run",
+    "exit",
+    "quit",
+    "delete",
+    "list",
+    "help",
+    "pull",
+    "stop",
+    "kill",
+    "push",
+    "login",
+    "restart",
+]
 
 
 def repl():
@@ -31,15 +46,23 @@ def repl():
                 generate.generate_dockerfile(directory)
 
         elif command[0] == "build":
-            # build = threading.Thread(
-            #     target=images.build_image,
-            #     args = (
-            #         get_directory(), str(
-            #         input("Input image name: "))
-            #     )
-            # )
-            # build.start()
-            images.build_image(get_directory(), str(input("Input image name: ")))
+            if len(command) < 2 or command[1] not in ("image", "container"):
+                build_type = str(input("Build image or container: "))
+                while build_type not in ("image", "container"):
+                    build_type = str(input("Build image or container: "))
+            else:
+                build_type = command[1]
+
+            if build_type == "image":
+                images.build_image(
+                    get_directory(),
+                    str(input("Input image name: "))
+                )
+            elif build_type == "container":
+                containers.build_container(
+                    str(input("Image to build container: ")),
+                    str(input("Arguments: "))
+                )
 
         elif command[0] == "run":
             if len(command) < 2 or command[1] not in ("image", "container"):
@@ -101,6 +124,10 @@ def repl():
                         print(container)
                 else:
                     print("None")
+
+        elif command[0] == "help":
+            # list commands and info on each w/ options/parameters
+            pass
 
         repl()
     return 0
