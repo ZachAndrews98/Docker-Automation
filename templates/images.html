@@ -1,0 +1,72 @@
+<!doctype HTML>
+{% include 'head.html' %}
+<body>
+  <div class="column" style="width: 20%;">
+    {% include 'nav.html' %}
+  </div>
+  <div class="column" style="width:80%;">
+    <div class="area" style="margin-left: 150px;">
+      <div class="row">
+        <div class="column" style="width:50%;">
+          <h2>Installed Images</h2>
+          <ul>
+            {% for image in images %}
+            <li>{{ image }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="column" style="width:50%;">
+          <h2>Installed Containers</h2>
+          <ul>
+            {% for container in containers %}
+            <li>{{ container }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <br>
+        <div class="row">
+          <div class="column" style="width: 50%;">
+            <h3>Run Image</h3>
+            <form action="/run_image" method="POST" name="Run_Image">
+              <input name="run_image_name" placeholder="Image to Run">
+              <input name="run_image_args" placeholder="(optional) Arguments"><br>
+              <button>Run Image</button>
+            </form>
+          </div>
+          <div class="column" style="width: 50%;">
+            <h3>Delete Image</h3>
+            <form action="/delete_image" method="POST" name="Delete_Image">
+              <input name="delete_image_name" placeholder="Image to Delete">
+              <button>Delete Image</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column" style="width: 50%;">
+            <h3>Generate Dockerfile</h3>
+            <form action="/generate_doc" method="POST" name="Generate_Doc">
+              <input name="generate_dir" placeholder="Path to directory">
+              <input name="generate_to_dir" placeholder="Path to mount files to">
+              <button>Build Container</button>
+            </form>
+          </div>
+
+          <div class="column" style="width: 50%;">
+            <h3>Build Image</h3>
+            <form action="/build_image" method="POST" name="Build_Image">
+              <input name="build_name" placeholder="Name of image">
+              <input name="build_arguments" placeholder="Arguments: ">
+              <button>Build Image</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<footer>
+</footer>
