@@ -1,6 +1,5 @@
 """ Container Utilites """
 
-import os
 import subprocess
 
 import docker
@@ -13,10 +12,11 @@ def run_container(container_name, args=""):
     subprocess.call(command, shell=True)
 
 
-def list_containers(filters={}, all=True):
+# pylint: disable=W0622, W0102
+def list_containers(filters=dict(), all=True):
     """ Return the conatiners on the machine """
     client = docker.from_env()
-    raw_containers = client.containers.list(filters={}, all=all)
+    raw_containers = client.containers.list(filters=filters, all=all)
     containers = list()
     for container in raw_containers:
         containers.append(container.name)
@@ -50,7 +50,7 @@ def build_container(image_name, args):
     """ Create a container, but do not run it """
     client = docker.from_env()
     return isinstance(client.containers.create(image_name, command=args),
-                docker.models.containers.Container)
+                      docker.models.containers.Container)
 
 
 def delete_container(containers):
@@ -59,5 +59,6 @@ def delete_container(containers):
     for container in containers:
         try:
             client.containers.get(container.strip()).remove()
+        # pylint: disable=W0703
         except BaseException:
             print("Unable to delete: " + container)

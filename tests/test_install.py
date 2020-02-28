@@ -1,7 +1,6 @@
 """ Test Docker installation methods """
-import pytest
 
-import io
+import pytest
 
 from auto import install
 
@@ -11,7 +10,7 @@ def test_install():
     assert install.install() == "Docker already installed."
 
 
-distros = [
+DISTROS = [
     (("Ubuntu", "", ""), "./instructions/ubuntu"),
     (("CentOS", "", ""), "./instructions/centos"),
     (("Debian", "", ""), "./instructions/debian"),
@@ -19,7 +18,7 @@ distros = [
     (("MacOS", "", ""), "./instructions/macos"),
     (("", "", ""), "No Instruction Set")
 ]
-@pytest.mark.parametrize("distro, expected",distros)
+@pytest.mark.parametrize("distro, expected", DISTROS)
 def test_get_instructions(distro, expected):
     """ Test Correct Instruction Set Found """
     assert install.get_instructions(distro) == expected
@@ -27,4 +26,4 @@ def test_get_instructions(distro, expected):
 
 def test_confirm_installation():
     """ Test Installation Confirmation """
-    assert install.confirm_installation() == True
+    assert install.confirm_installation() is True

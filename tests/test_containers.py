@@ -1,8 +1,8 @@
 """ Test Container Utilities """
 
-from auto import containers
-
-import pytest
+# from auto import containers
+#
+# import pytest
 
 # data = [
 #     (["hello"])

@@ -1,7 +1,5 @@
 """ Main file for running docker installation, generation, and gui """
 
-import sys
-
 COMMAND_LIST = [
     "generate",
     "build",
@@ -23,11 +21,9 @@ COMMAND_LIST = [
 def repl():
     """ Interactive command system """
 
-    from auto import install
     from auto import generate
     from auto import images
     from auto import containers
-    import threading
 
     command = str(input(">> ")).split(' ')
     # images.build_thread("./gentest", "test")
@@ -96,10 +92,12 @@ def repl():
                 remove_type = command[1]
 
             if remove_type == "image":
-                image_name = str(input("Image to remove: ")).strip(),split(',')
+                image_name = str(input("Image to remove: ")).strip().split(',')
                 images.delete_image(image_name)
             elif remove_type == "container":
-                container_name = str(input("Container to remove: ")).strip().split(',')
+                container_name = str(
+                    input("Container to remove: ")
+                ).strip().split(',')
                 containers.delete_container(container_name)
 
         elif command[0] == "list":

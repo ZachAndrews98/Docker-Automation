@@ -1,8 +1,8 @@
 """ Test Docker Automation methods """
 
-import pytest
-
 import io
+
+import pytest
 
 from auto import docker_auto
 
@@ -17,21 +17,21 @@ from auto import docker_auto
 #     assert docker_auto.main() == expected
 
 
-data = [
+DATA = [
     ("exit", 0)
 ]
-@pytest.mark.parametrize("input, expected", data)
-def test_repl(input, expected, monkeypatch):
+@pytest.mark.parametrize("sim_input, expected", DATA)
+def test_repl(sim_input, expected, monkeypatch):
     """ Test Repl function """
-    monkeypatch.setattr('sys.stdin', io.StringIO(input))
+    monkeypatch.setattr('sys.stdin', io.StringIO(sim_input))
     assert docker_auto.repl() == expected
 
 
-location = [
+LOCATION = [
     ("../gentest", "../gentest")
 ]
-@pytest.mark.parametrize("input, expected", location)
-def test_get_directory(input, expected, monkeypatch):
+@pytest.mark.parametrize("sim_input, expected", LOCATION)
+def test_get_directory(sim_input, expected, monkeypatch):
     """ Test get directory function """
-    monkeypatch.setattr('sys.stdin', io.StringIO(input))
+    monkeypatch.setattr('sys.stdin', io.StringIO(sim_input))
     assert docker_auto.get_directory() == expected

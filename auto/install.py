@@ -24,7 +24,8 @@ def install():
         if file != "No Instruction Set":
             execute_instructions(file)
         if confirm_installation():
-            return "Docker successfully installed, please restart to complete installation."
+            return "Docker successfully installed, \
+                    please restart to complete installation."
         return "Issues installing Docker."
     return "Docker already installed."
 

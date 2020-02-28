@@ -2,7 +2,6 @@
 
 import os
 import subprocess
-import time
 import threading
 
 import docker
@@ -33,20 +32,23 @@ def push_image(image_name, tag):
 def build_image(directory, image_name):
     """ Builds an image based on the path to a Dockerfile """
     if os.path.exists(directory + "/Dockerfile"):
-        client = docker.from_env()
         print("Building Image. This may take a while")
         # start = time.time()
-        thread = threading.Thread(target=build_thread, args=(directory, image_name))
+        thread = threading.Thread(
+            target=build_thread, args=(directory, image_name)
+        )
         thread.start()
         # print("Buildtime: " + str((time.time() - start) / 60))
         return True
-    else:
-        print("No Dockerfile found in " + directory)
-        return False
+    print("No Dockerfile found in " + directory)
+    return False
+
 
 def build_thread(directory, image_name):
+    """ Creates thread for building images """
     client = docker.from_env()
     client.images.build(path=directory, tag=str(image_name), rm=True)
+
 
 def run_image(image_name, args=""):
     """ Runs a given image in a separate terminal """
@@ -56,6 +58,7 @@ def run_image(image_name, args=""):
     subprocess.call(command, shell=True)
 
 
+# pylint: disable=W0622
 def list_images(name="", all=False):
     """ Return the images on the machine """
     client = docker.from_env()
