@@ -13,8 +13,7 @@ from interface.interface_containers import CONTAINERS_APP
 APP = Flask(__name__)
 APP.register_blueprint(IMAGES_APP)
 APP.register_blueprint(CONTAINERS_APP)
-# pylint: disable=C0103
-fa = FontAwesome(APP)
+FA = FontAwesome(APP)
 
 
 @APP.route('/')
@@ -48,7 +47,6 @@ def help():
     return render_template('help.html')
 
 
-# pylint: disable=W0622
 def exit():
     """ Shutdown interface """
     func = request.environ.get('werkzeug.server.shutdown')

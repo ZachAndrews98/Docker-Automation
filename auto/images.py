@@ -32,12 +32,10 @@ def build_image(directory, image_name):
     """ Builds an image based on the path to a Dockerfile """
     if os.path.exists(directory + "/Dockerfile"):
         print("Building Image. This may take a while")
-        # start = time.time()
         thread = threading.Thread(
             target=build_thread, args=(directory, image_name)
         )
         thread.start()
-        # print("Buildtime: " + str((time.time() - start) / 60))
         return True
     print("No Dockerfile found in " + directory)
     return False
@@ -78,7 +76,3 @@ def delete_image(images):
             client.images.remove(image)
         except BaseException:
             print("Unable to remove image: " + image)
-
-
-# if __name__ == "__main__":
-    # print(isinstance(pull_image("hello-world"), docker.models.images.Image))

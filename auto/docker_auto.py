@@ -26,7 +26,6 @@ def repl():
     from auto import containers
 
     command = str(input(">> ")).split(' ')
-    # images.build_thread("./gentest", "test")
     while command[0] not in COMMAND_LIST:
         print("That is not a valid command")
         command = str(input(">> "))
@@ -124,7 +123,7 @@ def repl():
                     print("None")
 
         elif command[0] == "help":
-            # list commands and info on each w/ options/parameters
+            # TODO: list commands and info on each w/ options/parameters
             pass
 
         repl()

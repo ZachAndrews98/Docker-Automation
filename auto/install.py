@@ -65,7 +65,6 @@ def confirm_installation():
             installed = True
         client.images.remove("hello-wold:latest")
         print("Installed:", installed)
-    # pylint: disable=W0703
     except BaseException:
         pass
     return installed

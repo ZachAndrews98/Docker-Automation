@@ -4,7 +4,6 @@ import os
 import sys
 import re
 
-# pylint: disable=W1401
 FILE_REGEX = r'^[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$'
 
 FILE_TYPES = {
@@ -33,7 +32,6 @@ def get_file_types(directory):
     for filetype in filetypes:
         try:
             print("\t", FILE_TYPES[filetype])
-        # pylint: disable=W0703
         except BaseException:
             print("\t #Unknown Extension: " + filetype)
     return filetypes
@@ -47,7 +45,6 @@ def generate_dockerfile(directory, to_dir="test"):
     for ext in exts:
         try:
             installs += FILE_TYPES[ext] + " "
-        # pylint: disable=W0703
         except BaseException:
             pass
     try:
