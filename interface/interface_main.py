@@ -3,7 +3,7 @@
 import webbrowser
 import sys
 
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_fontawesome import FontAwesome
 
 from auto import images, containers
