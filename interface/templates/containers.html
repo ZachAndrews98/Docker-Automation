@@ -12,7 +12,7 @@
         <div class="row">
           <div class="column" style="width: 50%;">
             <h3>Run Container</h3>
-            <form action="/run_container" method="POST" name="Run_Container">
+            <form action="/containers/run" method="POST" name="Run_Container">
               <input name="run_container_name" placeholder="Container to Run">
               <input name="run_container_args" placeholder="(optional) Arguments">
               <button>Run Container</button>
@@ -20,7 +20,7 @@
           </div>
           <div class="column" style="width: 50%;">
             <h3>Delete Container</h3>
-            <form action="/delete_container" method="POST" name="Delete_Container">
+            <form action="/containers/delete" method="POST" name="Delete_Container">
               <input name="delete_container_name" placeholder="Container to Delete">
               <button>Delete Container</button>
             </form>
@@ -30,22 +30,40 @@
         <div class="row">
           <div class="column" style="width: 50%;">
             <h3>Build Container</h3>
-            <form action="/build_container" method="POST" name="Build_Container">
-              <input name="build_path" placeholder="Path to directory">
-              <input name="build_name" placeholder="Name of image">
+            <form action="/containers/build" method="POST" name="Build_Container">
+              <input name="build_image_name" placeholder="Name of image">
+              <input name="build_container_args" placeholder="Arguments: ">
               <button>Build Container</button>
             </form>
           </div>
 
           <div class="column" style="width: 50%;">
-            <h3>Build Container</h3>
-            <form action="/build_image" method="POST" name="Build_Image">
-              <input name="build_name" placeholder="Name of image">
-              <input name="build_arguments" placeholder="Arguments: ">
-              <button>Build Container</button>
+            <h3>Kill Container</h3>
+            <form action="/containers/kill" method="POST" name="Kill_Container">
+              <input name="kill_container_name" placeholder="Container Name">
+              <button>Kill Container</button>
             </form>
           </div>
         </div>
+
+        <div class="row">
+          <div class="column" style="width: 50%;">
+            <h3>Stop Container</h3>
+            <form action="/containers/stop" method="POST" name="Stop_Container">
+              <input name="stop_container_name" placeholder="Container Name">
+              <button>Stop Container</button>
+            </form>
+          </div>
+
+          <div class="column" style="width: 50%;">
+            <h3>Restart Container</h3>
+            <form action="/containers/restart" method="POST" name="Restart_Container">
+              <input name="restart_container_name" placeholder="Container Name">
+              <button>Restart Container</button>
+            </form>
+          </div>
+        </div>
+        
       </div>
     </div>
   </div>

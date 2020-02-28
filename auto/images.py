@@ -17,7 +17,6 @@ def pull_image(image_name, tag="latest"):
     """ Pull a docker image """
     client = docker.from_env()
     return client.images.pull(image_name, tag=tag)
-    # return client.images.pull(image_name)
 
 
 def push_image(image_name, tag):

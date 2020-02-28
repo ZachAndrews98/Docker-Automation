@@ -12,7 +12,7 @@
         <div class="row">
           <div class="column" style="width: 50%;">
             <h3>Run Image</h3>
-            <form action="/run_image" method="POST" name="Run_Image">
+            <form action="/images/run" method="POST" name="Run_Image">
               <input name="run_image_name" placeholder="Image to Run">
               <input name="run_image_args" placeholder="(optional) Arguments"><br>
               <button>Run Image</button>
@@ -20,9 +20,28 @@
           </div>
           <div class="column" style="width: 50%;">
             <h3>Delete Image</h3>
-            <form action="/delete_image" method="POST" name="Delete_Image">
+            <form action="/images/delete" method="POST" name="Delete_Image">
               <input name="delete_image_name" placeholder="Image to Delete">
               <button>Delete Image</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column" style="width: 50%;">
+            <h3>Pull Image</h3>
+            <form action="/images/pull" method="POST" name="Push_Image">
+              <input name="pull_image_name" placeholder="Image Name to Pull">
+              <input name="pull_image_tag" placeholder="Image Tag"><br>
+              <button>Pull Image</button>
+            </form>
+          </div>
+          <div class="column" style="width: 50%;">
+            <h3>Push Image</h3>
+            <form action="/images/push" method="POST" name="Pull_Image">
+              <input name="push_image_name" placeholder="Image Name to Push">
+              <input name="push_image_tag" placeholder="Image Tag"><br>
+              <button>Push Image</button>
             </form>
           </div>
         </div>
@@ -39,7 +58,7 @@
 
           <div class="column" style="width: 50%;">
             <h3>Build Image</h3>
-            <form action="/build_image" method="POST" name="Build_Image">
+            <form action="/images/build" method="POST" name="Build_Image">
               <input name="build_name" placeholder="Name of image">
               <input name="build_arguments" placeholder="Arguments: ">
               <button>Build Image</button>

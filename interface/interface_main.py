@@ -7,12 +7,12 @@ from flask_fontawesome import FontAwesome
 
 from auto import images, containers
 from interface.interface_images import IMAGES_APP
-from interface.interface_containers import CONTAINER_APP
+from interface.interface_containers import CONTAINERS_APP
 
 
 APP = Flask(__name__)
 APP.register_blueprint(IMAGES_APP)
-APP.register_blueprint(CONTAINER_APP)
+APP.register_blueprint(CONTAINERS_APP)
 # pylint: disable=C0103
 fa = FontAwesome(APP)
 
@@ -40,6 +40,12 @@ def get_lists():
 def update():
     """ Update the interface """
     return redirect(url_for("home"))
+
+
+@APP.route('/help')
+def help():
+    """ Help page """
+    return render_template('help.html')
 
 
 # pylint: disable=W0622

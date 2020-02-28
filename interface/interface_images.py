@@ -28,7 +28,7 @@ def generate_doc():
     return redirect(url_for("images_app.image"))
 
 
-@IMAGES_APP.route('/build_image', methods=['POST'])
+@IMAGES_APP.route('/images/build', methods=['POST'])
 def build_image():
     """ Path to call image builder """
     directory = request.form['build_path']
@@ -37,7 +37,25 @@ def build_image():
     return redirect(url_for("images_app.image"))
 
 
-@IMAGES_APP.route('/run_image', methods=['POST'])
+@IMAGES_APP.route('/images/pull', methods=['POST'])
+def pull_image():
+    """ Pull an image from an external source """
+    image_name = request.form['pull_image_name']
+    image_tag = request.form['pull_image_tag']
+    images.pull_image(image_name, tag=image_tag)
+    return redirect(url_for("images_app.image"))
+
+
+@IMAGES_APP.route('/images/push', methods=['POST'])
+def push_image():
+    """ Push an image to an external repository """
+    image_name = request.form['push_image_name']
+    image_tag = request.form['push_image_tag']
+    images.push_image(image_name, tag=image_tag)
+    return redirect(url_for("images_app.image"))
+
+
+@IMAGES_APP.route('/images/run', methods=['POST'])
 def run_image():
     """ Path to call run image """
     image_name = request.form['run_image_name']
@@ -49,7 +67,7 @@ def run_image():
     return redirect(url_for("images_app.image"))
 
 
-@IMAGES_APP.route('/delete_image', methods=['POST'])
+@IMAGES_APP.route('/images/delete', methods=['POST'])
 def delete_image():
     """ Path to delete image """
     image_name = request.form['delete_image_name']
