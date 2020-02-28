@@ -1,6 +1,7 @@
 """ Flask routes for homepage and common functions """
 
 import webbrowser
+import sys
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_fontawesome import FontAwesome
@@ -9,6 +10,9 @@ from auto import images, containers
 from interface.interface_images import IMAGES_APP
 from interface.interface_containers import CONTAINERS_APP
 
+
+# Silence Flask development server warning
+sys.modules['flask.cli'].show_server_banner = lambda *x: None
 
 APP = Flask(__name__)
 APP.register_blueprint(IMAGES_APP)
