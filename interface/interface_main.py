@@ -3,7 +3,7 @@
 import webbrowser
 import sys
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_fontawesome import FontAwesome
 
 from auto import images, containers
@@ -24,7 +24,7 @@ FA = FontAwesome(APP)
 def home():
     """ Homepage of web interface """
     image_list, container_list = get_lists()
-    return render_template('gui.html', images=image_list,
+    return render_template('index.html', images=image_list,
                            containers=container_list)
 
 
@@ -39,10 +39,11 @@ def get_lists():
     return image_list, container_list
 
 
-@APP.route('/update')
+@APP.route('/update', methods=['GET'])
 def update():
     """ Update the interface """
-    return redirect(url_for("home"))
+    image_list, container_list = get_lists()
+    return jsonify(images=image_list, containers=container_list)
 
 
 @APP.route('/help')
