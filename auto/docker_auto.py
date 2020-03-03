@@ -1,5 +1,7 @@
 """ Main file for running docker installation, generation, and gui """
 
+from auto import generate, images, containers
+
 COMMAND_LIST = [
     "generate",
     "build",
@@ -20,11 +22,7 @@ COMMAND_LIST = [
 
 def repl():
     """ Interactive command system """
-
-    from auto import generate
-    from auto import images
-    from auto import containers
-
+    from auto import generate, images, containers
     command = str(input(">> ")).split(' ')
     while command[0] not in COMMAND_LIST:
         print("That is not a valid command")
@@ -128,6 +126,43 @@ def repl():
 
         repl()
     return 0
+
+
+def command_line(args):
+    """ Run functions via command line arguments """
+    from auto import generate, images, containers
+    if args.build:
+        if args.image:
+            images.build_image(args.path, args.name)
+        elif args.container:
+            containers.build_container(args.name, args.args)
+    elif args.list:
+        if args.image:
+            print(images.list_images())
+        elif args.container:
+            print(containers.list_containers())
+    elif args.run:
+        if args.image:
+            if args.args:
+                images.run_image(args.name, args.args)
+            else:
+                images.run_image(args.name)
+        elif args.container:
+            if args.args:
+                containers.run_container(args.name, ', '.join(args.args))
+            else:
+                containers.run_container(args.name)
+    elif args.delete:
+        if args.image:
+            if args.name:
+                images.delete_image(args.name)
+            elif args.names:
+                images.delete_image(args.names[0])
+        elif args.container:
+            if args.name:
+                containers.delete_container(args.name)
+            elif args.names:
+                containers.delete_container(args.names[0])
 
 
 def get_directory():
