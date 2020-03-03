@@ -25,13 +25,3 @@ def test_repl(sim_input, expected, monkeypatch):
     """ Test Repl function """
     monkeypatch.setattr('sys.stdin', io.StringIO(sim_input))
     assert docker_auto.repl() == expected
-
-
-LOCATION = [
-    ("../gentest", "../gentest")
-]
-@pytest.mark.parametrize("sim_input, expected", LOCATION)
-def test_get_directory(sim_input, expected, monkeypatch):
-    """ Test get directory function """
-    monkeypatch.setattr('sys.stdin', io.StringIO(sim_input))
-    assert docker_auto.get_directory() == expected

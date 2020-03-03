@@ -30,7 +30,7 @@ def repl():
 
     if command[0] != "exit" and command[0] != "quit":
         if command[0] == "generate":
-            directory = get_directory()
+            directory = str(input("Input path to directory:\n"))
             to_dir = str(
                 input("Input location to mount files (default:test):")).strip()
             if to_dir != "":
@@ -48,7 +48,7 @@ def repl():
 
             if build_type == "image":
                 images.build_image(
-                    get_directory(),
+                    str(input("Input path to directory:\n")),
                     str(input("Input image name: "))
                 )
             elif build_type == "container":
@@ -163,8 +163,3 @@ def command_line(args):
                 containers.delete_container(args.name)
             elif args.names:
                 containers.delete_container(args.names[0])
-
-
-def get_directory():
-    """ Returns an inputted directory """
-    return str(input("Input path to directory:\n"))
