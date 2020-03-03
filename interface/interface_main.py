@@ -3,7 +3,7 @@
 import webbrowser
 import sys
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_fontawesome import FontAwesome
 
 from auto import images, containers
@@ -26,6 +26,15 @@ def home():
     image_list, container_list = get_lists()
     return render_template('index.html', images=image_list,
                            containers=container_list)
+
+
+@APP.route('/login', methods=['POST'])
+def login():
+    """ Login to Docker """
+    username = request.form['username']
+    password = request.form['password']
+    print(images.login(username, password))
+    return redirect(url_for("home"))
 
 
 def get_lists():

@@ -23,6 +23,8 @@ def install():
         file = get_instructions(distro)
         if file != "No Instruction Set":
             execute_instructions(file)
+        else:
+            print("No Instruction Set Found")
         if confirm_installation():
             return "Docker successfully installed, \
                     please restart to complete installation."

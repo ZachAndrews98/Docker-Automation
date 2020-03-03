@@ -10,7 +10,7 @@ import docker
 def login(user, passwd):
     """ Login to Docker """
     client = docker.from_env()
-    client.login(username=user, password=passwd)
+    return client.login(username=user, password=passwd)
 
 
 def pull_image(image_name, tag="latest"):
