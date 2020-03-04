@@ -2,7 +2,7 @@
 
 import sys
 
-from auto import docker_auto, install, arguments
+from auto import terminal, install, arguments, command_line
 from interface import interface_main
 
 
@@ -11,11 +11,10 @@ if __name__ == "__main__":
 
     if args.terminal:
         print(install.install())
-        docker_auto.repl()
+        terminal.repl()
     elif len(sys.argv) == 1:
-        print("gui")
-        # print(install.install())
-        # interface_main.start_interface()
+        print(install.install())
+        interface_main.start_interface()
     else:
         print(install.install())
-        docker_auto.command_line(args)
+        print(command_line.command_line(args))
