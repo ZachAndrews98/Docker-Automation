@@ -29,11 +29,10 @@ input {
   margin-top: 5px;
 }
 
-/* Menu */
-/* @import url(https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css); */
-
-/* @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300); */
-
+/* Menu https://codepen.io/JFarrow/pen/fFrpg */
+/* @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+}
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300); */
 .fa-2x {
   font-size: 2em;
 }
@@ -57,7 +56,7 @@ input {
 .main-menu {
   background:#212121;
   border-right:1px solid #e5e5e5;
-  position:relative;
+  position:absolute;
   top:0;
   bottom:0;
   height:100%;
