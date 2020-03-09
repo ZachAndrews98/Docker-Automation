@@ -16,6 +16,10 @@ def command_line(args):
                 return "Additional flags required"
         else:
             return "Additional flags required"
+    elif args.generate:
+        if args.image:
+            if args.path and args.dest:
+                generate.generate_dockerfile(args.path, args.dest)
     elif args.list:
         if args.image:
             print(images.list_images())
@@ -84,6 +88,6 @@ def command_line(args):
             return "Additional flags required"
     elif args.restart:
         if args.name:
-            container.restart_container(args.name)
+            containers.restart_container(args.name)
         else:
             return "Additional flags required"

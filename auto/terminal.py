@@ -1,6 +1,5 @@
 """ Main file for running docker installation, generation, and gui """
 
-from auto import generate, images, containers
 
 COMMAND_LIST = [
     "generate",

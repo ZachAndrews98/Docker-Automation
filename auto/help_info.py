@@ -1,3 +1,5 @@
+""" Help information for functions """
+
 BUILD_IMAGE_INFO = "Builds a new Image"
 BUILD_CONTAINER_INFO = "Builds a new Container"
 
