@@ -20,14 +20,13 @@ def command_line(args):
     elif args.generate:
         if args.image:
             if args.path and args.dest:
-                generate.generate_dockerfile(args.path, args.dest)
+                return generate.generate_dockerfile(args.path, args.dest)
     elif args.list:
         if args.image:
-            print(images.list_images())
+            return images.list_images()
         elif args.container:
-            print(containers.list_containers())
-        else:
-            return "Additional flags required"
+            return containers.list_containers()
+        return "Additional flags required"
     elif args.run:
         if args.image:
             if args.args and args.name:
@@ -36,6 +35,7 @@ def command_line(args):
                 images.run_image(args.name)
             else:
                 return "Additional flags required"
+            return True
         elif args.container:
             if args.args and args.name:
                 containers.run_container(args.name, ', '.join(args.args))

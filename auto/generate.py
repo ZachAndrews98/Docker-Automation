@@ -51,7 +51,7 @@ def generate_dockerfile(directory, to_dir="test"):
         docfile = open("./" + directory + "/Dockerfile", "w+")
     except FileExistsError:
         print("File Already Exists")
-        sys.exit()
+        return False
     docfile.write("FROM " + base_image + "\n\n")
     docfile.write("ADD ./ " + to_dir + "/" + "\n\n")
     docfile.write(
@@ -61,3 +61,4 @@ def generate_dockerfile(directory, to_dir="test"):
     # docfile.write(
     #     "CMD cd test && chmod +x testPrograms.sh && ./testPrograms.sh")
     docfile.close()
+    return True
