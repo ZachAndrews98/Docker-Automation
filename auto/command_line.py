@@ -1,5 +1,6 @@
 """ Interpret command line arguments and run commands """
 
+
 def command_line(args):
     """ Run functions via command line arguments """
     from auto import generate, images, containers
