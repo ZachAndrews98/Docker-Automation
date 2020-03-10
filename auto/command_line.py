@@ -24,7 +24,7 @@ def command_line(args):
     elif args.list:
         if args.image:
             return images.list_images()
-        elif args.container:
+        if args.container:
             return containers.list_containers()
         return "Additional flags required"
     elif args.run:
@@ -35,7 +35,6 @@ def command_line(args):
                 images.run_image(args.name)
             else:
                 return "Additional flags required"
-            return True
         elif args.container:
             if args.args and args.name:
                 containers.run_container(args.name, ', '.join(args.args))
