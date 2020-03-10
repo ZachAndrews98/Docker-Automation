@@ -2,14 +2,18 @@
 
 import sys
 
-from auto import docker_auto, install
+from auto import terminal, install, arguments, command_line
 from interface import interface_main
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--terminal":
+    args = arguments.parse_args(sys.argv[1:])
+
+    if not args.install:
         print(install.install())
-        docker_auto.repl()
-    else:
-        print(install.install())
+    if args.terminal:
+        terminal.repl()
+    elif len(sys.argv) <= 2:
         interface_main.start_interface()
+    else:
+        print(command_line.command_line(args))

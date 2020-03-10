@@ -55,7 +55,11 @@ def execute_instructions(file):
     commands = open(file, 'r')
     for command in commands:
         command = command.replace("\n", "")
-        os.system(command)
+        try:
+            os.system(command)
+        except BaseException:
+            return False
+    return True
 
 
 def confirm_installation():

@@ -1,5 +1,6 @@
 """ Main file for running docker installation, generation, and gui """
 
+
 COMMAND_LIST = [
     "generate",
     "build",
@@ -20,11 +21,7 @@ COMMAND_LIST = [
 
 def repl():
     """ Interactive command system """
-
-    from auto import generate
-    from auto import images
-    from auto import containers
-
+    from auto import generate, images, containers
     command = str(input(">> ")).split(' ')
     while command[0] not in COMMAND_LIST:
         print("That is not a valid command")
@@ -32,7 +29,7 @@ def repl():
 
     if command[0] != "exit" and command[0] != "quit":
         if command[0] == "generate":
-            directory = get_directory()
+            directory = str(input("Input path to directory:\n"))
             to_dir = str(
                 input("Input location to mount files (default:test):")).strip()
             if to_dir != "":
@@ -50,7 +47,7 @@ def repl():
 
             if build_type == "image":
                 images.build_image(
-                    get_directory(),
+                    str(input("Input path to directory:\n")),
                     str(input("Input image name: "))
                 )
             elif build_type == "container":
@@ -128,8 +125,3 @@ def repl():
 
         repl()
     return 0
-
-
-def get_directory():
-    """ Returns an inputted directory """
-    return str(input("Input path to directory:\n"))
