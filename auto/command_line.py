@@ -21,6 +21,7 @@ def command_line(args):
         if args.image:
             if args.path and args.dest:
                 return generate.generate_dockerfile(args.path, args.dest)
+        return "Additional flags required"
     elif args.list:
         if args.image:
             return images.list_images()

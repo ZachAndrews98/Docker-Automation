@@ -7,7 +7,9 @@ from interface import interface_main
 
 
 if __name__ == "__main__":
-    args = arguments.parse_args(sys.argv[1:])
+    test = ['--build', '--image']
+    args = arguments.parse_args(test)
+    # args = arguments.parse_args(sys.argv[1:])
 
     if not args.install:
         print(install.install())
