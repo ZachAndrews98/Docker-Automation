@@ -28,14 +28,17 @@ def push_image(image_name, tag):
         client.images.push(image_name)
 
 
-def build_image(directory, image_name):
+def build_image(directory, image_name, threaded=True):
     """ Builds an image based on the path to a Dockerfile """
     if os.path.exists(directory + "/Dockerfile"):
         print("Building Image. This may take a while")
-        thread = threading.Thread(
-            target=build_thread, args=(directory, image_name)
-        )
-        thread.start()
+        if threaded:
+            thread = threading.Thread(
+                target=build_thread, args=(directory, image_name)
+            )
+            thread.start()
+            return True
+        build_thread(directory, image_name)
         return True
     print("No Dockerfile found in " + directory)
     return False

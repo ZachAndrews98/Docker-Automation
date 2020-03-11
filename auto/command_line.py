@@ -7,7 +7,9 @@ def command_line(args):
     if args.build:
         if args.image:
             if args.path and args.name:
-                images.build_image(args.path, args.name)
+                images.build_image(
+                    args.path, args.name, threaded=args.threaded
+                )
             else:
                 return "Additional flags required"
         elif args.container:
