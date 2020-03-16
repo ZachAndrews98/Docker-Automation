@@ -6,26 +6,25 @@ import threading
 
 import docker
 
+CLIENT = docker.from_env()
+
 
 def login(user, passwd):
     """ Login to Docker """
-    client = docker.from_env()
-    return client.login(username=user, password=passwd)
+    return CLIENT.login(username=user, password=passwd)
 
 
 def pull_image(image_name, tag="latest"):
     """ Pull a docker image """
-    client = docker.from_env()
-    return client.images.pull(image_name, tag=tag)
+    return CLIENT.images.pull(image_name, tag=tag)
 
 
 def push_image(image_name, tag):
     """ Push a docker image """
-    client = docker.from_env()
     if tag != "":
-        client.images.push(image_name, tag=tag)
+        CLIENT.images.push(image_name, tag=tag)
     else:
-        client.images.push(image_name)
+        CLIENT.images.push(image_name)
 
 
 def build_image(directory, image_name, threaded=True):
@@ -46,23 +45,24 @@ def build_image(directory, image_name, threaded=True):
 
 def build_thread(directory, image_name):
     """ Creates thread for building images """
-    client = docker.from_env()
-    client.images.build(path=directory, tag=str(image_name), rm=True)
+    CLIENT.images.build(path=directory, tag=str(image_name), rm=True)
 
 
-def run_image(image_name, args=""):
+def run_image(image_name, args="", sep=True):
     """ Runs a given image in a separate terminal """
-    # if install_docker.PLATFORM == Linux:
     base_command = "docker run " + args + " " + image_name
-    command = "gnome-terminal --command '" + base_command + "'"
+    if sep:
+        command = "gnome-terminal --command '" + base_command + "'"
+    else:
+        print("SEP")
+        command = base_command
     subprocess.call(command, shell=True)
 
 
 # pylint: disable=W0622
 def list_images(name="", all=False):
     """ Return the images on the machine """
-    client = docker.from_env()
-    raw_images = client.images.list(name=name, all=all)
+    raw_images = CLIENT.images.list(name=name, all=all)
     images = list()
     for image in raw_images:
         images.append(''.join(image.tags))
@@ -73,9 +73,8 @@ def list_images(name="", all=False):
 
 def delete_image(images):
     """ Delete a given image(s) from the machine """
-    client = docker.from_env()
     for image in images:
         try:
-            client.images.remove(image)
+            CLIENT.images.remove(image)
         except BaseException:
             print("Unable to remove image: " + image)

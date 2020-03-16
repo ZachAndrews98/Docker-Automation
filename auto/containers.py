@@ -4,19 +4,24 @@ import subprocess
 
 import docker
 
+CLIENT = docker.from_env()
 
-def run_container(container_name, args=""):
+
+def run_container(container_name, args="", sep=True):
     """ Runs a given container in a separate terminal """
+    print("\t",args)
     base_command = "docker start " + args + " " + container_name
-    command = "gnome-terminal --command '" + base_command + "'"
+    if sep:
+        command = "gnome-terminal --command '" + base_command + "'"
+    else:
+        command = base_command
     subprocess.call(command, shell=True)
 
 
 # pylint: disable=W0622, W0102
 def list_containers(filters=dict(), all=True):
     """ Return the conatiners on the machine """
-    client = docker.from_env()
-    raw_containers = client.containers.list(filters=filters, all=all)
+    raw_containers = CLIENT.containers.list(filters=filters, all=all)
     containers = list()
     for container in raw_containers:
         containers.append(container.name)
@@ -27,38 +32,33 @@ def list_containers(filters=dict(), all=True):
 
 def kill_container(container_name):
     """ Kill a running container """
-    client = docker.from_env()
-    container = client.containers.get(container_name)
+    container = CLIENT.containers.get(container_name)
     container.kill()
 
 
 def stop_container(container_name):
     """ Stop a running container """
-    client = docker.from_env()
-    container = client.containers.get(container_name)
+    container = CLIENT.containers.get(container_name)
     container.stop()
 
 
 def restart_container(container_name):
     """ Restart a container """
-    client = docker.from_env()
-    container = client.containers.get(container_name)
+    container = CLIENT.containers.get(container_name)
     container.restart()
 
 
 def build_container(image_name, args):
     """ Create a container, but do not run it """
-    client = docker.from_env()
-    return isinstance(client.containers.create(image_name, command=args),
+    return isinstance(CLIENT.containers.create(image_name, command=args),
                       docker.models.containers.Container)
 
 
 def delete_container(containers):
     """ Delete a given container(s) from the machine """
-    client = docker.from_env()
     for container in containers:
         try:
-            client.containers.get(container.strip()).remove()
+            CLIENT.containers.get(container.strip()).remove()
         # pylint: disable=W0703
         except BaseException:
             print("Unable to delete: " + container)

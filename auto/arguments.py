@@ -29,8 +29,10 @@ PARSER.add_argument('--username', action='store')
 PARSER.add_argument('--password', action='store')
 PARSER.add_argument('--tag', action='store')
 PARSER.add_argument('--dest', action='store')
+PARSER.add_argument('--sep', action='store_false', default=True)
 
 
 def parse_args(args):
     """ Parse command line arguments and return results """
+    print(args)
     return PARSER.parse_args(args)

@@ -33,16 +33,16 @@ def command_line(args):
     elif args.run:
         if args.image:
             if args.args and args.name:
-                images.run_image(args.name, args.args)
+                images.run_image(args.name, args=args.args, sep=args.sep)
             elif args.name:
-                images.run_image(args.name)
+                images.run_image(args.name, sep=args.sep)
             else:
                 return "Additional flags required"
         elif args.container:
             if args.args and args.name:
-                containers.run_container(args.name, ', '.join(args.args))
+                containers.run_container(args.name, args=args.args, sep=args.sep)
             elif args.name:
-                containers.run_container(args.name)
+                containers.run_container(args.name, sep=args.sep)
             else:
                 return "Additional flags required"
         else:
