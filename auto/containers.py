@@ -9,7 +9,6 @@ CLIENT = docker.from_env()
 
 def run_container(container_name, args="", sep=True):
     """ Runs a given container in a separate terminal """
-    print("\t",args)
     base_command = "docker start " + args + " " + container_name
     if sep:
         command = "gnome-terminal --command '" + base_command + "'"
