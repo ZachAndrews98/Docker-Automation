@@ -1,8 +1,7 @@
 """ Evaluate Run Commands """
 
-import time, os
-
-import docker
+import time
+import os
 
 from auto import arguments, command_line
 from evaluator import data
@@ -22,17 +21,17 @@ def evalutate_run_hello_world(num_tests):
         command_line.command_line(parsed_args)
         tool_run_time = (time.gmtime(time.time() - start_time).tm_sec)
         average_tool_time = average_tool_time + \
-                tool_run_time
+            tool_run_time
         data.TOOL_AVERAGES["hello_world_times"].append(tool_run_time)
         print("Running Image directly using terminal")
         start_time = time.time()
         os.system(
-            "docker run" + str(parsed_args.args) + " " + \
+            "docker run" + str(parsed_args.args) + " " +
             str(parsed_args.name)
         )
         term_run_time = (time.gmtime(time.time() - start_time).tm_sec)
         average_terminal_time = average_terminal_time + \
-                term_run_time
+            term_run_time
         data.TERM_AVERAGES["hello_world_times"].append(term_run_time)
 
     data.TOOL_AVERAGES['hello_world'] = average_tool_time / num_tests

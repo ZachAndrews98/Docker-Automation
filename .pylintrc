@@ -1,2 +1,2 @@
 [MESSAGES CONTROL]
-disable=too-many-locals, import-outside-toplevel, too-many-branches, too-many-statements, broad-except, fixme, cyclic-import, redefined-builtin, redefined-outer-name, too-many-return-statements, inconsistent-return-statements
+disable=too-many-locals, import-outside-toplevel, too-many-branches, too-many-statements, broad-except, fixme, cyclic-import, redefined-builtin, redefined-outer-name, too-many-return-statements, inconsistent-return-statements, duplicate-code, invalid-name

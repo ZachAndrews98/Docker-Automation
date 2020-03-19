@@ -40,7 +40,9 @@ def command_line(args):
                 return "Additional flags required"
         elif args.container:
             if args.args and args.name:
-                containers.run_container(args.name, args=args.args, sep=args.sep)
+                containers.run_container(
+                    args.name, args=args.args, sep=args.sep
+                )
             elif args.name:
                 containers.run_container(args.name, sep=args.sep)
             else:

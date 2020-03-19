@@ -1,7 +1,7 @@
 """ Evaluation Data Management """
 
 import matplotlib.pyplot as plt
-import numpy as np
+# import numpy as np
 
 TOOL_AVERAGES = {
     "build_image_times": [],
@@ -19,6 +19,7 @@ TERM_AVERAGES = {
 
 
 def plot_data():
+    """ Plot Data within Dictionaries """
     fig1, ax1 = plt.subplots()
     fig1.suptitle("Run Times for Hello World Run")
     ax1.set_xlabel("Test Number")
@@ -50,7 +51,7 @@ def plot_data():
     ax1.legend()
 
     fig2, ax2 = plt.subplots()
-    fig1.suptitle("Run Times for Hello World Run")
+    fig2.suptitle("Run Times for Image Building")
     ax2.set_xlabel("Test Number")
     ax2.set_ylabel("Run Time (s)")
     # Run Times
