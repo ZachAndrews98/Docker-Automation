@@ -3,14 +3,14 @@
 import matplotlib.pyplot as plt
 # import numpy as np
 
-TOOL_AVERAGES = {
+TOOL_DATA = {
     "build_image_times": [],
     "hello_world_times": [],
     "build_image": 0,
     "hello_world": 0,
 }
 
-TERM_AVERAGES = {
+TERM_DATA = {
     "build_image_times": [],
     "hello_world_times": [],
     "build_image": 0,
@@ -26,26 +26,32 @@ def plot_data():
     ax1.set_ylabel("Run Time (s)")
     # Run Times
     ax1.plot(
-        list(range(0, len(TOOL_AVERAGES["hello_world_times"]))),
-        TOOL_AVERAGES["hello_world_times"],
-        label="Tool"
+        list(range(0, len(TOOL_DATA["hello_world_times"]))),
+        TOOL_DATA["hello_world_times"],
+        label="Tool",
+        color="red"
     )
 
     ax1.plot(
-        list(range(0, len(TERM_AVERAGES["hello_world_times"]))),
-        TERM_AVERAGES["hello_world_times"],
-        label="Terminal"
+        list(range(0, len(TERM_DATA["hello_world_times"]))),
+        TERM_DATA["hello_world_times"],
+        label="Terminal",
+        color="blue"
     )
     # Average Run Times
     ax1.hlines(
-        TOOL_AVERAGES["hello_world"],
-        xmin=0, xmax=len(TOOL_AVERAGES["hello_world_times"]),
-        label="Tool Average"
+        TOOL_DATA["hello_world"],
+        xmin=0, xmax=len(TOOL_DATA["hello_world_times"]),
+        label="Tool Average",
+        color="red",
+        linestyles="dashed"
     )
     ax1.hlines(
-        TERM_AVERAGES["hello_world"],
-        xmin=0, xmax=len(TERM_AVERAGES["hello_world_times"]),
-        label="Terminal Average"
+        TERM_DATA["hello_world"],
+        xmin=0, xmax=len(TERM_DATA["hello_world_times"]),
+        label="Terminal Average",
+        color="blue",
+        linestyles="dashed"
     )
 
     ax1.legend()
@@ -56,26 +62,32 @@ def plot_data():
     ax2.set_ylabel("Run Time (s)")
     # Run Times
     ax2.plot(
-        list(range(0, len(TOOL_AVERAGES["build_image_times"]))),
-        TOOL_AVERAGES["build_image_times"],
-        label="Tool"
+        list(range(0, len(TOOL_DATA["build_image_times"]))),
+        TOOL_DATA["build_image_times"],
+        label="Tool",
+        color="red"
     )
 
     ax2.plot(
-        list(range(0, len(TERM_AVERAGES["build_image_times"]))),
-        TERM_AVERAGES["build_image_times"],
-        label="Terminal"
+        list(range(0, len(TERM_DATA["build_image_times"]))),
+        TERM_DATA["build_image_times"],
+        label="Terminal",
+        color="blue"
     )
     # Average Run Times
     ax2.hlines(
-        TOOL_AVERAGES["build_image"],
-        xmin=0, xmax=len(TOOL_AVERAGES["build_image_times"]),
-        label="Tool Average"
+        TOOL_DATA["build_image"],
+        xmin=0, xmax=len(TOOL_DATA["build_image_times"]),
+        label="Tool Average",
+        color="red",
+        linestyles="dashed"
     )
     ax2.hlines(
-        TERM_AVERAGES["build_image"],
-        xmin=0, xmax=len(TERM_AVERAGES["build_image_times"]),
-        label="Terminal Average"
+        TERM_DATA["build_image"],
+        xmin=0, xmax=len(TERM_DATA["build_image_times"]),
+        label="Terminal Average",
+        color="blue",
+        linestyles="dashed"
     )
 
     ax2.legend()

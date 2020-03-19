@@ -54,7 +54,6 @@ def run_image(image_name, args="", sep=True):
     if sep:
         command = "gnome-terminal --command '" + base_command + "'"
     else:
-        print("SEP")
         command = base_command
     subprocess.call(command, shell=True)
 
