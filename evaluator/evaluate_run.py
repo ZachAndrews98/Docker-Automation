@@ -1,16 +1,37 @@
 """ Evaluate Run Commands """
 
+import concurrent.futures
 import time
-# import threading
 import os
 
 from auto import arguments, command_line
 from evaluator import data
 
-# def threaded_evaluate_run_hello_world(num_tests, num_threads):
-#     """ Threaded evaluation of running hello-world image """
-#     for x in range(num_threads):
-#
+
+def threaded_evaluate_run_hello_world(num_tests, num_threads):
+    """ Threaded evaluation of running hello-world image """
+    with concurrent.futures.ThreadPoolExecutor(
+            max_workers=num_threads
+    ) as executor:
+        # pylint: disable=W0612
+        for x in range(num_threads):
+            future = executor.submit(tool_hello_world)
+            data.TOOL_DATA["thread_hello_world_times"].append(future.result())
+
+    with concurrent.futures.ThreadPoolExecutor(
+            max_workers=num_threads
+    ) as executor:
+        # pylint: disable=W0612
+        for x in range(num_threads):
+            future = executor.submit(term_hello_world)
+            data.TERM_DATA["thread_hello_world_times"].append(future.result())
+
+    data.TOOL_DATA['thread_hello_world_ave'] = sum(
+        data.TOOL_DATA["thread_hello_world_times"]
+    ) / num_tests
+    data.TERM_DATA['thread_hello_world_ave'] = sum(
+        data.TERM_DATA["thread_hello_world_times"]
+    ) / num_tests
 
 
 def tool_hello_world():
@@ -47,5 +68,5 @@ def evalutate_run_hello_world(num_tests):
         average_terminal_time = average_terminal_time + term_run_time
         data.TERM_DATA["hello_world_times"].append(term_run_time)
 
-    data.TOOL_DATA['hello_world'] = average_tool_time / num_tests
-    data.TERM_DATA['hello_world'] = average_terminal_time / num_tests
+    data.TOOL_DATA['hello_world_ave'] = average_tool_time / num_tests
+    data.TERM_DATA['hello_world_ave'] = average_terminal_time / num_tests

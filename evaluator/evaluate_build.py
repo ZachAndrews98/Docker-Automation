@@ -1,10 +1,37 @@
 """ Evalutate Build Commands """
 
+import concurrent.futures
 import time
 import os
 
 from auto import arguments, command_line
 from evaluator import data
+
+
+def threaded_evaluate_build_image(num_tests, num_threads):
+    """ Threaded evaluation of running hello-world image """
+    # pylint: disable=W0612
+    for x in range(num_threads):
+        with concurrent.futures.ThreadPoolExecutor(
+                max_workers=num_threads
+        ) as executor:
+            os.system("docker rmi test:latest")
+            future = executor.submit(tool_build_image)
+            data.TOOL_DATA["thread_build_image_times"].append(future.result())
+
+        with concurrent.futures.ThreadPoolExecutor(
+                max_workers=num_threads
+        ) as executor:
+            os.system("docker rmi test-1:latest")
+            future = executor.submit(term_build_image)
+            data.TERM_DATA["thread_build_image_times"].append(future.result())
+
+    data.TOOL_DATA['thread_build_image_ave'] = sum(
+        data.TOOL_DATA["thread_build_image_times"]
+    ) / num_tests
+    data.TERM_DATA['thread_build_image_ave'] = sum(
+        data.TERM_DATA["thread_build_image_times"]
+    ) / num_tests
 
 
 def tool_build_image():
@@ -43,5 +70,5 @@ def evaluate_build_image(num_tests):
         data.TERM_DATA["build_image_times"].append(term_run_time)
         os.system("docker rmi test-1:latest test:latest")
 
-    data.TOOL_DATA['build_image'] = average_tool_time / num_tests
-    data.TERM_DATA['build_image'] = average_terminal_time / num_tests
+    data.TOOL_DATA['build_image_ave'] = average_tool_time / num_tests
+    data.TERM_DATA['build_image_ave'] = average_terminal_time / num_tests
