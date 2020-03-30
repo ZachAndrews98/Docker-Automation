@@ -1,6 +1,7 @@
 """ Evaluate Run Commands """
 
 import concurrent.futures
+# import threading
 import time
 import os
 
@@ -10,19 +11,39 @@ from evaluator import data
 
 def threaded_evaluate_run_hello_world(num_tests, num_threads):
     """ Threaded evaluation of running hello-world image """
+    # for x in range(num_tests):
+        # start_time = time.time()
+        # for thread in range(num_threads):
+        #     thread = threading.Thread(
+        #         target=tool_hello_world
+        #     )
+        #     thread.start()
+        # end_time = time.gmtime(time.time() - start_time).tm_sec
+        # print(end_time)
+        # start_time = time.time()
+        # for thread in range(num_threads):
+        #     thread = threading.Thread(
+        #         target=term_hello_world
+        #     )
+        #     thread.start()
+        # end_time = time.gmtime(time.time() - start_time).tm_sec
+        # print(end_time)
+
     with concurrent.futures.ThreadPoolExecutor(
             max_workers=num_threads
     ) as executor:
-        # pylint: disable=W0612
-        for x in range(num_threads):
+        for x in range(num_tests):
+            print("\n\nTest Number:", str(x+1))
+            print("\n\n")
             future = executor.submit(tool_hello_world)
             data.TOOL_DATA["thread_hello_world_times"].append(future.result())
 
     with concurrent.futures.ThreadPoolExecutor(
             max_workers=num_threads
     ) as executor:
-        # pylint: disable=W0612
-        for x in range(num_threads):
+        for x in range(num_tests):
+            print("\n\nTest Number:", str(x+1))
+            print("\n\n")
             future = executor.submit(term_hello_world)
             data.TERM_DATA["thread_hello_world_times"].append(future.result())
 
@@ -32,6 +53,7 @@ def threaded_evaluate_run_hello_world(num_tests, num_threads):
     data.TERM_DATA['thread_hello_world_ave'] = sum(
         data.TERM_DATA["thread_hello_world_times"]
     ) / num_tests
+    # print(time.gmtime(time.time() - start_time).tm_sec)
 
 
 def tool_hello_world():

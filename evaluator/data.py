@@ -101,7 +101,7 @@ def plot_data():
     ax2.legend()
 
     fig3, ax3 = plt.subplots()
-    fig3.suptitle("Threaded Run Times for Image Building")
+    fig3.suptitle("Run Times for Threaded Hello World Run")
     ax3.set_xlabel("Test Number")
     ax3.set_ylabel("Run Time (s)")
 
@@ -138,7 +138,7 @@ def plot_data():
     ax3.legend()
 
     fig4, ax4 = plt.subplots()
-    fig4.suptitle("Run Times for Image Building")
+    fig4.suptitle("Run Times for Threaded Image Building")
     ax4.set_xlabel("Test Number")
     ax4.set_ylabel("Run Time (s)")
     # Run Times

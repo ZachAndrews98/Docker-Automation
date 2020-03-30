@@ -12,6 +12,8 @@ def threaded_evaluate_build_image(num_tests, num_threads):
     """ Threaded evaluation of running hello-world image """
     # pylint: disable=W0612
     for x in range(num_threads):
+        print("\n\nTest Number:", str(x+1))
+        print("\n\n")
         with concurrent.futures.ThreadPoolExecutor(
                 max_workers=num_threads
         ) as executor:

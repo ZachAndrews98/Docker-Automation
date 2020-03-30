@@ -36,7 +36,7 @@ def get_file_types(directory):
     return filetypes
 
 
-def generate_dockerfile(directory, to_dir="test"):
+def generate_dockerfile(directory, to_dir="project"):
     """ Creates a Dockerfile based on detected filetypes """
     base_image = "debian:bullseye"
     exts = get_file_types(directory)
@@ -57,7 +57,6 @@ def generate_dockerfile(directory, to_dir="test"):
         "RUN apt update && apt upgrade -y && \\\n" +
         "apt install " + installs + "-y" + "\n\n"
     )
-    # docfile.write(
-    #     "CMD cd test && chmod +x testPrograms.sh && ./testPrograms.sh")
+    docfile.write("CMD cd ./ " + to_dir + "\n")
     docfile.close()
     return True
