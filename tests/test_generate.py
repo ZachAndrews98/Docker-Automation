@@ -8,7 +8,7 @@ from auto import generate
 
 
 LOCATION = [
-    ('./gentest', {'py', 'c', 'java', 'js', 'sh', 'rb', 'go'})
+    ('./samples/gentest', {'py', 'c', 'java', 'js', 'sh', 'rb', 'go'})
 ]
 @pytest.mark.parametrize("location, expected", LOCATION)
 def test_get_file_types(location, expected):
@@ -17,8 +17,8 @@ def test_get_file_types(location, expected):
 
 
 LOCATION = [
-    ('./gentest', './gentest/Dockerfile', True),
-    ('./gentest', './instructions/Dockerfile', False)
+    ('./samples/gentest', './samples/gentest/Dockerfile', True),
+    ('./samples/gentest', './instructions/Dockerfile', False)
 ]
 @pytest.mark.parametrize("location, path_check, expected", LOCATION)
 def test_generate_dockerfile(location, path_check, expected):

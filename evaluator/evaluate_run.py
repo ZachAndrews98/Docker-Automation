@@ -11,23 +11,23 @@ from evaluator import data
 
 def threaded_evaluate_run_hello_world(num_tests, num_threads):
     """ Threaded evaluation of running hello-world image """
-    # for x in range(num_tests):
-        # start_time = time.time()
-        # for thread in range(num_threads):
-        #     thread = threading.Thread(
-        #         target=tool_hello_world
-        #     )
-        #     thread.start()
-        # end_time = time.gmtime(time.time() - start_time).tm_sec
-        # print(end_time)
-        # start_time = time.time()
-        # for thread in range(num_threads):
-        #     thread = threading.Thread(
-        #         target=term_hello_world
-        #     )
-        #     thread.start()
-        # end_time = time.gmtime(time.time() - start_time).tm_sec
-        # print(end_time)
+# for x in range(num_tests):
+    # start_time = time.time()
+    # for thread in range(num_threads):
+    #     thread = threading.Thread(
+    #         target=tool_hello_world
+    #     )
+    #     thread.start()
+    # end_time = time.gmtime(time.time() - start_time).tm_sec
+    # print(end_time)
+    # start_time = time.time()
+    # for thread in range(num_threads):
+    #     thread = threading.Thread(
+    #         target=term_hello_world
+    #     )
+    #     thread.start()
+    # end_time = time.gmtime(time.time() - start_time).tm_sec
+    # print(end_time)
 
     with concurrent.futures.ThreadPoolExecutor(
             max_workers=num_threads

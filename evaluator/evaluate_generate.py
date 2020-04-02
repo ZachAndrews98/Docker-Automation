@@ -3,6 +3,7 @@
 from auto import generate
 from auto import images
 
+
 def evaluate_generate():
     """ Evaluate the correctness of Generated Dockerfiles """
     incorrect = 0
