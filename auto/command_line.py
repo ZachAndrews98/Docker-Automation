@@ -20,9 +20,8 @@ def command_line(args):
         else:
             return "Additional flags required"
     elif args.generate:
-        if args.image:
-            if args.path and args.dest:
-                return generate.generate_dockerfile(args.path, args.dest)
+        if args.path and args.dest:
+            return generate.generate_dockerfile(args.path, args.dest)
         return "Additional flags required"
     elif args.list:
         if args.image:
