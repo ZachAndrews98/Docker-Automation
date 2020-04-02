@@ -29,7 +29,7 @@ def push_image(image_name, tag):
 
 def build_image(directory, image_name, threaded=True):
     """ Builds an image based on the path to a Dockerfile """
-    if os.path.exists(directory + "/Dockerfile"):
+    if os.path.exists("./" + directory + "/Dockerfile"):
         print("Building Image. This may take a while")
         if threaded:
             thread = threading.Thread(
@@ -55,7 +55,7 @@ def run_image(image_name, args="", sep=True):
         command = "gnome-terminal --command '" + base_command + "'"
     else:
         command = base_command
-    subprocess.call(command, shell=True)
+    return subprocess.call(command, shell=True)
 
 
 # pylint: disable=W0622
