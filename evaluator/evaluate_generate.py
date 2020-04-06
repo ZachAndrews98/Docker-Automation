@@ -7,6 +7,7 @@ from auto import images
 
 from evaluator import data
 
+
 def evaluate_generate():
     """ Evaluate the correctness of Generated Dockerfiles """
     os.system("docker rmi gentest2 gentest3 gentest4")

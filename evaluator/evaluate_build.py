@@ -1,6 +1,7 @@
 """ Evalutate Build Commands """
 
-import concurrent.futures
+# import concurrent.futures
+import threading
 import time
 import os
 
@@ -8,32 +9,42 @@ from auto import arguments, command_line
 from evaluator import data
 
 
-def threaded_evaluate_build_image(num_tests, num_threads):
+def threaded_evaluate_build_image(num_threads):
     """ Threaded evaluation of running hello-world image """
-    # pylint: disable=W0612
-    for x in range(num_threads):
-        print("\n\nTest Number:", str(x+1))
-        print("\n\n")
-        with concurrent.futures.ThreadPoolExecutor(
-                max_workers=num_threads
-        ) as executor:
-            os.system("docker rmi test:latest")
-            future = executor.submit(tool_build_image)
-            data.TOOL_DATA["thread_build_image_times"].append(future.result())
+    data.TOOL_DATA["thread_build_image_threads"] = num_threads
+    data.TERM_DATA["thread_build_image_threads"] = num_threads
+    tool_threads = list()
+    term_threads = list()
+    for threads in list(num_threads):
+        # pylint: disable=W0612
+        for i in range(threads):
+            tool_threads.append(threading.Thread(target=tool_build_image))
+            term_threads.append(threading.Thread(target=term_build_image))
 
-        with concurrent.futures.ThreadPoolExecutor(
-                max_workers=num_threads
-        ) as executor:
-            os.system("docker rmi test-1:latest")
-            future = executor.submit(term_build_image)
-            data.TERM_DATA["thread_build_image_times"].append(future.result())
+        start_time = time.time()
+        for thread in tool_threads:
+            thread.start()
+        for thread in tool_threads:
+            thread.join()
+        end_time = time.gmtime(time.time() - start_time).tm_sec
+        data.TOOL_DATA["thread_build_image_times"].append(end_time)
+        data.TOOL_DATA['thread_build_image_ave'].append(sum(
+            data.TOOL_DATA["thread_build_image_times"]
+        ) / threads)
 
-    data.TOOL_DATA['thread_build_image_ave'] = sum(
-        data.TOOL_DATA["thread_build_image_times"]
-    ) / num_tests
-    data.TERM_DATA['thread_build_image_ave'] = sum(
-        data.TERM_DATA["thread_build_image_times"]
-    ) / num_tests
+        start_time = time.time()
+        for thread in term_threads:
+            thread.start()
+        for thread in term_threads:
+            thread.join()
+        end_time = time.gmtime(time.time() - start_time).tm_sec
+        data.TERM_DATA["thread_build_image_times"].append(end_time)
+        data.TERM_DATA['thread_build_image_ave'].append(sum(
+            data.TERM_DATA["thread_build_image_times"]
+        ) / threads)
+
+        tool_threads.clear()
+        term_threads.clear()
 
 
 def tool_build_image():
