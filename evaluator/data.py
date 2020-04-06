@@ -11,7 +11,8 @@ TOOL_DATA = {
     "thread_build_image_times": [],
     "thread_build_image_ave": 0,
     "thread_hello_world_times": [],
-    "thread_hello_world_ave": 0,
+    "thread_hello_world_ave": [],
+    "thread_hello_world_threads": [],
 }
 
 TERM_DATA = {
@@ -24,6 +25,56 @@ TERM_DATA = {
     "thread_hello_world_times": [],
     "thread_hello_world_ave": 0,
 }
+
+GENERATE_DATA = {
+    "output": [],
+    "num_tests": 0,
+    "num_correct": 0,
+    "num_incorrect": 0
+}
+
+
+def write_data():
+    out_file = open("./output.txt", "w+")
+
+    out_file.write("IMAGE BUILDING EVALUATION DATA\n")
+    out_file.write("\tTOOL TIMES\n")
+    out_file.write("\t\tTimes:" + str(TOOL_DATA["build_image_times"]) + "\n")
+    out_file.write(
+        "\t\tAverage Time:" + str(TOOL_DATA["build_image_ave"]) + "\n"
+    )
+    out_file.write("\tTERMINAL TIMES\n")
+    out_file.write("\t\tTimes:" + str(TERM_DATA["build_image_times"]) + "\n")
+    out_file.write(
+        "\t\tAverage Time:" + str(TERM_DATA["build_image_ave"]) + "\n"
+    )
+
+    out_file.write("HELLO WORLD EVALUATION DATA")
+    out_file.write("\tTOOL TIMES\n")
+    out_file.write("\t\tTimes:" + str(TOOL_DATA["hello_world_times"]) + "\n")
+    out_file.write(
+        "\t\tAverage Time:" + str(TOOL_DATA["hello_world_ave"]) + "\n"
+    )
+    out_file.write("\tTERMINAL TIMES\n")
+    out_file.write("\t\tTimes:" + str(TERM_DATA["hello_world_times"]) + "\n")
+    out_file.write(
+        "\t\tAverage Time:" + str(TERM_DATA["hello_world_ave"]) + "\n"
+    )
+
+    out_file.write("DOCKERFILE GENERATOR EVALUATION DATA\n")
+    for line in GENERATE_DATA["output"]:
+        if line != "\n":
+            out_file.write(line + "\n")
+        else:
+            out_file.write(line)
+    out_file.write("Evaluated " + str(GENERATE_DATA["num_tests"]) + " Images\n")
+    out_file.write(
+        "\t" + str(GENERATE_DATA["num_correct"]) + " Worked Properly\n"
+    )
+    out_file.write(
+        "\t" + str(GENERATE_DATA["num_incorrect"]) + " Worked Improperly\n"
+    )
+    out_file.close()
 
 
 def plot_data():

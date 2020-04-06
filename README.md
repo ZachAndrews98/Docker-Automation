@@ -35,8 +35,7 @@ The main way this tool is designed to be used is via the browser based user inte
 
 In addition to the graphical interface there is also a Terminal based system which offers all of the same functions of the graphical interface within the command line. In order to use this system the user must supply the `--terminal` flag at the end of the run command.
 
-Currently there are three commands available in the built in Repl system, which
-can be seen below with appropriate descriptions of each.
+The commands for each function is listed below with a short description of what it does.
 
 - `generate`: Generates a Dockerfile for an inputted directory and places the file in the directory.
 
@@ -47,6 +46,18 @@ can be seen below with appropriate descriptions of each.
 - `list <images/containers>`: List all of the images or containers that are installed on the current machine.
 
 - `delete <image/container>`: Delete the specified image(s) or container(s) that is installed on the current machine. If you would like to delete more than one image or container separate the list with `,`.
+
+- `login`: Allows the user to login to Dockerhub, completely optional and only has an effect on pushing Images to Dockerhub.
+
+- `pull`: Allows a user to download an Image to the user's machine.
+
+- `push`: Allows a user to upload an Image to Dockerhub.
+
+- `kill`: Force stop a Container that is running.
+
+- `stop`: Stop a Container that is running.
+
+- `restart`: Restart a stopped or killed Container.
 
 
 ### Command Line Arguments

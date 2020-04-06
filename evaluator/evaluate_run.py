@@ -1,7 +1,7 @@
 """ Evaluate Run Commands """
 
 import concurrent.futures
-# import threading
+import threading
 import time
 import os
 
@@ -9,50 +9,66 @@ from auto import arguments, command_line
 from evaluator import data
 
 
-def threaded_evaluate_run_hello_world(num_tests, num_threads):
+def threaded_evaluate_run_hello_world(num_threads):
     """ Threaded evaluation of running hello-world image """
-# for x in range(num_tests):
-    # start_time = time.time()
-    # for thread in range(num_threads):
-    #     thread = threading.Thread(
-    #         target=tool_hello_world
-    #     )
-    #     thread.start()
-    # end_time = time.gmtime(time.time() - start_time).tm_sec
-    # print(end_time)
-    # start_time = time.time()
-    # for thread in range(num_threads):
-    #     thread = threading.Thread(
-    #         target=term_hello_world
-    #     )
-    #     thread.start()
-    # end_time = time.gmtime(time.time() - start_time).tm_sec
-    # print(end_time)
+    # print(str(num_threads))
+    data.TOOL_DATA["thread_hello_world_threads"] = num_threads
+    tool_threads = list()
+    term_threads = list()
+    for threads in list(num_threads):
+        for i in range(threads):
+            tool_threads.append(threading.Thread(target=tool_hello_world))
+            term_threads.append(threading.Thread(target=term_hello_world))
 
-    with concurrent.futures.ThreadPoolExecutor(
-            max_workers=num_threads
-    ) as executor:
-        for x in range(num_tests):
-            print("\n\nTest Number:", str(x+1))
-            print("\n\n")
-            future = executor.submit(tool_hello_world)
-            data.TOOL_DATA["thread_hello_world_times"].append(future.result())
+        start_time = time.time()
+        for thread in tool_threads:
+            thread.start()
+        for thread in tool_threads:
+            thread.join()
 
-    with concurrent.futures.ThreadPoolExecutor(
-            max_workers=num_threads
-    ) as executor:
-        for x in range(num_tests):
-            print("\n\nTest Number:", str(x+1))
-            print("\n\n")
-            future = executor.submit(term_hello_world)
-            data.TERM_DATA["thread_hello_world_times"].append(future.result())
+        end_time = time.gmtime(time.time() - start_time).tm_sec
+        data.TOOL_DATA["thread_hello_world_times"].append(end_time)
+        data.TOOL_DATA['thread_hello_world_ave'].append(sum(
+            data.TOOL_DATA["thread_hello_world_times"]
+        ) / threads)
+        tool_threads.clear()
+        term_threads.clear()
 
-    data.TOOL_DATA['thread_hello_world_ave'] = sum(
-        data.TOOL_DATA["thread_hello_world_times"]
-    ) / num_tests
-    data.TERM_DATA['thread_hello_world_ave'] = sum(
-        data.TERM_DATA["thread_hello_world_times"]
-    ) / num_tests
+        # for thread in range(num_threads):
+        #     thread = threading.Thread(
+        #         target=tool_hello_world
+        #     )
+        #     tool_threads.append(thread)
+        # start_time = time.time()
+        # for thread in range(num_threads):
+        #     thread = threading.Thread(
+        #         target=term_hello_world
+        #     )
+        #     thread.start()
+        # end_time = time.gmtime(time.time() - start_time).tm_sec
+        # print(end_time)
+
+    # with concurrent.futures.ThreadPoolExecutor(
+    #         max_workers=num_threads
+    # ) as executor:
+    #     for x in range(num_tests):
+    #         print("\n\nTest Number:", str(x+1))
+    #         print("\n\n")
+    #         future = executor.submit(tool_hello_world)
+    #         data.TOOL_DATA["thread_hello_world_times"].append(future.result())
+    #
+    # with concurrent.futures.ThreadPoolExecutor(
+    #         max_workers=num_threads
+    # ) as executor:
+    #     for x in range(num_tests):
+    #         print("\n\nTest Number:", str(x+1))
+    #         print("\n\n")
+    #         future = executor.submit(term_hello_world)
+    #         data.TERM_DATA["thread_hello_world_times"].append(future.result())
+    #
+    # data.TERM_DATA['thread_hello_world_ave'] = sum(
+    #     data.TERM_DATA["thread_hello_world_times"]
+    # ) / num_tests
     # print(time.gmtime(time.time() - start_time).tm_sec)
 
 
