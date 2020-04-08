@@ -5,7 +5,7 @@ NUMTESTS=1
 SUCCESS_STRING="Success: "
 FAIL_STRING="FAIL: "
 
-# if python3 pythonTest.py | grep -q 'Hello, World!'; then
+# if python3 python_test.py | grep -q 'Hello, World!'; then
 #   SUCCESS_STRING+="Python "
 #   ((success=success+1))
 # else

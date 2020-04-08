@@ -5,20 +5,20 @@ NUMTESTS=1
 SUCCESS_STRING="Success: "
 FAIL_STRING="FAIL: "
 
-if python3 python_test.py | grep -q 'Hello, World!'; then
-  SUCCESS_STRING+="Python "
-  ((success=success+1))
-else
-  FAIL_STRING+="Python "
-fi
-
-# if node jsTest.js | grep -q 'Hello, World!'; then
-#   SUCCESS_STRING+="JavaScript "
+# if python3 python_test.py | grep -q 'Hello, World!'; then
+#   SUCCESS_STRING+="Python "
 #   ((success=success+1))
 # else
-#   FAIL_STRING+="JavaScript "
+#   FAIL_STRING+="Python "
 # fi
-#
+
+if node jsTest.js | grep -q 'Hello, World!'; then
+  SUCCESS_STRING+="JavaScript "
+  ((success=success+1))
+else
+  FAIL_STRING+="JavaScript "
+fi
+
 # gcc cTest.c -o cTest
 # if ./cTest | grep -q 'Hello, World!'; then
 #   SUCCESS_STRING+="C "
@@ -59,10 +59,10 @@ if [[ $1 == "-v" ]] || [[ $1 == "--verbose" ]]; then
 fi
 
 if [[ $success == $NUMTESTS ]]; then
-  echo "All Tests Passed, Image is Correct"
+  echo "All Tests Passed"
   exit 0
 else
-  echo "Tests Failed, Image is Incorrect"
+  echo "Tests Failed"
   exit 1
 fi
 # echo $success

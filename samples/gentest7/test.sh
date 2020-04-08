@@ -5,13 +5,13 @@ NUMTESTS=1
 SUCCESS_STRING="Success: "
 FAIL_STRING="FAIL: "
 
-if python3 python_test.py | grep -q 'Hello, World!'; then
-  SUCCESS_STRING+="Python "
-  ((success=success+1))
-else
-  FAIL_STRING+="Python "
-fi
-
+# if python3 python_test.py | grep -q 'Hello, World!'; then
+#   SUCCESS_STRING+="Python "
+#   ((success=success+1))
+# else
+#   FAIL_STRING+="Python "
+# fi
+#
 # if node jsTest.js | grep -q 'Hello, World!'; then
 #   SUCCESS_STRING+="JavaScript "
 #   ((success=success+1))
@@ -45,13 +45,13 @@ fi
 #   FAIL_STRING+="Go "
 # fi
 # rm goTest
-#
-# if ruby rubyTest.rb | grep -q 'Hello, World!'; then
-#   SUCCESS_STRING+="Ruby "
-#   ((success=success+1))
-# else
-#   FAIL_STRING+="Ruby "
-# fi
+
+if ruby rubyTest.rb | grep -q 'Hello, World!'; then
+  SUCCESS_STRING+="Ruby "
+  ((success=success+1))
+else
+  FAIL_STRING+="Ruby "
+fi
 
 if [[ $1 == "-v" ]] || [[ $1 == "--verbose" ]]; then
   echo $SUCCESS_STRING
@@ -59,10 +59,10 @@ if [[ $1 == "-v" ]] || [[ $1 == "--verbose" ]]; then
 fi
 
 if [[ $success == $NUMTESTS ]]; then
-  echo "All Tests Passed, Image is Correct"
+  echo "All Tests Passed"
   exit 0
 else
-  echo "Tests Failed, Image is Incorrect"
+  echo "Tests Failed"
   exit 1
 fi
 # echo $success

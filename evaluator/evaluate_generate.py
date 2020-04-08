@@ -10,11 +10,17 @@ from evaluator import data
 
 def evaluate_generate():
     """ Evaluate the correctness of Generated Dockerfiles """
-    os.system("docker rmi gentest2 gentest3 gentest4")
+    # os.system(
+    #     "docker rmi gentest2 gentest3 gentest4 gentest5 gentest6 gentest7" +
+    #     " gentest8 gentest9 gentest10 gentest11 gentest12"
+    # )
     incorrect = 0
     correct = 0
-    output = list()
-    directories = ("gentest2", "gentest3", "gentest4")
+    directories = (
+        "gentest1", "gentest2", "gentest3", "gentest4", "gentest5", "gentest6",
+        "gentest7", "gentest8", "gentest9", "gentest10", "gentest11",
+        "gentest12"
+    )
     for file in directories:
         data.GENERATE_DATA["output"].append("Evaluating " + file)
         generate.generate_dockerfile(
@@ -23,13 +29,16 @@ def evaluate_generate():
         )
         images.build_image("samples/" + file, file, threaded=False)
         if images.run_image(file + ":latest", args="--rm", sep=False) == 1:
-            output.append("\tImage: " + file + " is incorrect")
+            data.GENERATE_DATA["output"].append(
+                "\tImage: " + file + " is incorrect"
+            )
             incorrect = incorrect + 1
         else:
             data.GENERATE_DATA["output"].append(
                 "\tImage: " + file + " is correct"
             )
             correct = correct + 1
+        os.system("docker rmi " + file + ":latest")
         data.GENERATE_DATA["output"].append("\n")
     data.GENERATE_DATA["num_tests"] = len(directories)
     data.GENERATE_DATA["num_correct"] = correct

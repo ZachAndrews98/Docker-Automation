@@ -1,47 +1,40 @@
-
-IMAGE BUILDING EVALUATION DATA
-	TOOL TIMES
-		Times:[53, 46, 42, 42, 40]
-		Average Time:44.6
-	TERMINAL TIMES
-		Times:[48, 44, 49, 41, 41]
-		Average Time:44.6
-
-HELLO WORLD EVALUATION DATA	TOOL TIMES
-		Times:[2, 1, 1, 1, 2]
-		Average Time:1.4
-	TERMINAL TIMES
-		Times:[1, 1, 1, 1, 1]
-		Average Time:1.0
-
-THREADED IMAGE BUILDING EVALUATION DATA
-Number of Threads List:(5, 10)
-	TOOL TIMES
-		Times:[47, 0]
-		Average Time:[9.4, 4.7]
-	TERMINAL TIMES
-		Times:[22, 1]
-		Average Time:[4.4, 2.3]
-
-THREADED HELLO WORLD EVALUATION DATA
-Number of Threads List:(5, 10)
-	TOOL TIMES
-		Times:[5, 10]
-		Average Time:[1.0, 1.5]
-	TERMINAL TIMES
-		Times:[5, 10]
-		Average Time:[1.0, 1.5]
-
 DOCKERFILE GENERATOR EVALUATION DATA
+	Evaluating gentest1
+		Image: gentest1 is correct
+
 	Evaluating gentest2
 		Image: gentest2 is correct
-	
+
 	Evaluating gentest3
 		Image: gentest3 is correct
-	
+
 	Evaluating gentest4
 		Image: gentest4 is correct
-	
-	Evaluated 3 Images
-		3 Worked Properly
+
+	Evaluating gentest5
+		Image: gentest5 is correct
+
+	Evaluating gentest6
+		Image: gentest6 is correct
+
+	Evaluating gentest7
+		Image: gentest7 is correct
+
+	Evaluating gentest8
+		Image: gentest8 is correct
+
+	Evaluating gentest9
+		Image: gentest9 is correct
+
+	Evaluating gentest10
+		Image: gentest10 is correct
+
+	Evaluating gentest11
+		Image: gentest11 is correct
+
+	Evaluating gentest12
+		Image: gentest12 is correct
+
+	Evaluated 12 Images
+		12 Worked Properly
 		0 Worked Improperly
