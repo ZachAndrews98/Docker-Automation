@@ -52,6 +52,9 @@ def get_instructions(distro):
 
 def execute_instructions(file):
     """ Executes the installation instructions """
+    print("Warning: A restart will occur once installation is finished.")
+    print("\tThis allows for the installation of Docker to finish properly.")
+    input("\tPress Enter to continue. Hit 'ctrl + c' to cancel.")
     commands = open(file, 'r')
     for command in commands:
         command = command.replace("\n", "")

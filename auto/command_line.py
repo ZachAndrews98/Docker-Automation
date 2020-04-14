@@ -1,9 +1,10 @@
 """ Interpret command line arguments and run commands """
 
+from auto import generate, images, containers
+
 
 def command_line(args):
     """ Run functions via command line arguments """
-    from auto import generate, images, containers
     if args.build:
         if args.image:
             if args.path and args.name:
