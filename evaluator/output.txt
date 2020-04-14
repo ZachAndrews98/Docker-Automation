@@ -1,0 +1,40 @@
+DOCKERFILE GENERATOR EVALUATION DATA
+	Evaluating gentest1
+		Image: gentest1 is correct
+
+	Evaluating gentest2
+		Image: gentest2 is correct
+
+	Evaluating gentest3
+		Image: gentest3 is correct
+
+	Evaluating gentest4
+		Image: gentest4 is correct
+
+	Evaluating gentest5
+		Image: gentest5 is correct
+
+	Evaluating gentest6
+		Image: gentest6 is correct
+
+	Evaluating gentest7
+		Image: gentest7 is correct
+
+	Evaluating gentest8
+		Image: gentest8 is correct
+
+	Evaluating gentest9
+		Image: gentest9 is correct
+
+	Evaluating gentest10
+		Image: gentest10 is correct
+
+	Evaluating gentest11
+		Image: gentest11 is correct
+
+	Evaluating gentest12
+		Image: gentest12 is correct
+
+	Evaluated 12 Images
+		12 Worked Properly
+		0 Worked Improperly

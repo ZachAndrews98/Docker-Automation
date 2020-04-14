@@ -1,13 +1,16 @@
 """ Interpret command line arguments and run commands """
 
+from auto import generate, images, containers
+
 
 def command_line(args):
     """ Run functions via command line arguments """
-    from auto import generate, images, containers
     if args.build:
         if args.image:
             if args.path and args.name:
-                images.build_image(args.path, args.name)
+                images.build_image(
+                    args.path, args.name, threaded=args.threaded
+                )
             else:
                 return "Additional flags required"
         elif args.container:
@@ -18,9 +21,8 @@ def command_line(args):
         else:
             return "Additional flags required"
     elif args.generate:
-        if args.image:
-            if args.path and args.dest:
-                return generate.generate_dockerfile(args.path, args.dest)
+        if args.path and args.dest:
+            return generate.generate_dockerfile(args.path, args.dest)
         return "Additional flags required"
     elif args.list:
         if args.image:
@@ -31,16 +33,18 @@ def command_line(args):
     elif args.run:
         if args.image:
             if args.args and args.name:
-                images.run_image(args.name, args.args)
+                images.run_image(args.name, args=args.args, sep=args.sep)
             elif args.name:
-                images.run_image(args.name)
+                images.run_image(args.name, sep=args.sep)
             else:
                 return "Additional flags required"
         elif args.container:
             if args.args and args.name:
-                containers.run_container(args.name, ', '.join(args.args))
+                containers.run_container(
+                    args.name, args=args.args, sep=args.sep
+                )
             elif args.name:
-                containers.run_container(args.name)
+                containers.run_container(args.name, sep=args.sep)
             else:
                 return "Additional flags required"
         else:

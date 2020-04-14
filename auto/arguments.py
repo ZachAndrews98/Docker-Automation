@@ -17,6 +17,7 @@ PARSER.add_argument('--kill', action='store_true')
 PARSER.add_argument('--stop', action='store_true')
 PARSER.add_argument('--restart', action='store_true')
 PARSER.add_argument('--generate', action='store_true')
+PARSER.add_argument('--threaded', action='store_false', default=True)
 # Parameter flags
 PARSER.add_argument('--image', action='store_true')
 PARSER.add_argument('--container', action='store_true')
@@ -28,6 +29,7 @@ PARSER.add_argument('--username', action='store')
 PARSER.add_argument('--password', action='store')
 PARSER.add_argument('--tag', action='store')
 PARSER.add_argument('--dest', action='store')
+PARSER.add_argument('--sep', action='store_false', default=True)
 
 
 def parse_args(args):
