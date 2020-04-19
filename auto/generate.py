@@ -20,10 +20,13 @@ FILE_TYPES = {
 def get_file_types(directory):
     """ grabs the filetypes in a directory based on file extension """
     filetypes = set()
-    for _, _, files in os.walk("./" + directory):
+    for root, dirs, files in os.walk(os.getenv('HOME') + "/" + directory):
+        # print(files)
         for name in files:
             if re.match(FILE_REGEX, name):
-                print(name)
+                # print(name)
+                path = os.path.join(root,name)
+                print(path)
                 ext = name.split('.')[1]
                 if ext not in filetypes:
                     filetypes.add(ext)
@@ -47,7 +50,7 @@ def generate_dockerfile(directory, to_dir="project", add=""):
         except BaseException:
             pass
     try:
-        docfile = open("./" + directory + "/Dockerfile", "w+")
+        docfile = open(os.getenv('HOME') + "/" + directory + "/Dockerfile", "w")
     except FileExistsError:
         print("File Already Exists")
         return False
