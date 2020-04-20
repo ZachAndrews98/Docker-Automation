@@ -26,8 +26,8 @@ def test_list_images(expected):
 
 
 DATA = [
-    ("./instructions", "test", False),
-    ("./samples/gentest", "test", True)
+    ("Docker-Automation/instructions", "test", False),
+    ("Docker-Automation/samples/gentest", "test", True)
 ]
 @pytest.mark.parametrize("path, name, expected", DATA)
 def test_build_image(path, name, expected):

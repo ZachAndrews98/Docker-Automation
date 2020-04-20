@@ -8,6 +8,7 @@ def command_line(args):
     if args.build:
         if args.image:
             if args.path and args.name:
+                print(args.path)
                 images.build_image(
                     args.path, args.name, threaded=args.threaded
                 )

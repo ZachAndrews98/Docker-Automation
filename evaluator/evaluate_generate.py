@@ -27,7 +27,9 @@ def evaluate_generate():
             "Docker-Automation/samples/" + file,
             add="&& chmod +x test.sh && ./test.sh"
         )
-        images.build_image("Docker-Automation/samples/" + file, file, threaded=False)
+        images.build_image(
+            "Docker-Automation/samples/" + file, file, threaded=False
+        )
         if images.run_image(file + ":latest", args="--rm", sep=False) == 1:
             data.GENERATE_DATA["output"].append(
                 "\tImage: " + file + " is incorrect"

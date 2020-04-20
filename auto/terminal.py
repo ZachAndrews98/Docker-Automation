@@ -31,7 +31,9 @@ def repl():
         if command[0] == "generate":
             directory = str(input("Input path to directory:\n"))
             to_dir = str(
-                input("Input location to mount files (default:project/):")).strip()
+                input(
+                    "Input location to mount files (default:project/):")
+                ).strip()
             if to_dir != "":
                 generate.generate_dockerfile(directory, to_dir=to_dir)
             else:
