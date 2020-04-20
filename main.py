@@ -8,11 +8,11 @@ from interface import interface_main
 
 if __name__ == "__main__":
     args = arguments.parse_args(sys.argv[1:])
-    if not args.install:
+    if not args.no_install:
         print(install.install())
-    if args.terminal:
+    if args.command:
+        print(command_line.command_line(args))
+    elif args.terminal:
         terminal.repl()
     elif len(sys.argv) <= 2:
         interface_main.start_interface()
-    else:
-        print(command_line.command_line(args))

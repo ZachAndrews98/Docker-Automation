@@ -4,7 +4,9 @@ import argparse
 
 PARSER = argparse.ArgumentParser()
 # Command flags
-PARSER.add_argument('--install', action='store_true')
+PARSER.add_argument('--command', action='store_true', default=False)
+# PARSER.add_argument('--install', action='store_true')
+PARSER.add_argument('--no-install', action="store_true", default=False)
 PARSER.add_argument('--terminal', action='store_true')
 PARSER.add_argument('--build', action='store_true')
 PARSER.add_argument('--run', action='store_true')

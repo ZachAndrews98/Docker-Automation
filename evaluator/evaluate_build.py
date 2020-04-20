@@ -49,7 +49,7 @@ def threaded_evaluate_build_image(num_threads):
 
 def tool_build_image():
     """ Tool build image and return run time """
-    args = ['--build', '--image', '--path',
+    args = ['--command', '--build', '--image', '--path',
             'Docker-Automation/samples/gentest2',
             '--name', 'test', '--threaded']
     start_time = time.time()

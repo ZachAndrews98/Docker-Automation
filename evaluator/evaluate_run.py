@@ -49,7 +49,8 @@ def threaded_evaluate_run_hello_world(num_threads):
 
 def tool_hello_world():
     """ Tool run hello world image and return run time """
-    args = ['--run', '--image', '--name', 'hello-world',
+    args = ['--command', '--run', '--image',
+            '--name', 'hello-world',
             '--args', ' --rm', '--sep']
     start_time = time.time()
     parsed_args = arguments.parse_args(args)
