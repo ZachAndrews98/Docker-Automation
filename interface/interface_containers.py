@@ -37,6 +37,19 @@ def run_container():
     return redirect(url_for("containers_app.container"))
 
 
+@CONTAINERS_APP.route('/containers/connect', methods=['POST'])
+def connect_container():
+    """ Path to call run container """
+    container_name = request.form['connect_container_name']
+    args = request.form['connect_container_args']
+    command = request.form['connect_container_command']
+    if args != "":
+        containers.connect_container(container_name, args=args, command=command)
+    # else:
+    #     containers.connect_container(container_name)
+    return redirect(url_for("containers_app.container"))
+
+
 @CONTAINERS_APP.route('/containers/kill', methods=['POST'])
 def kill_container():
     """ Kill a running container """

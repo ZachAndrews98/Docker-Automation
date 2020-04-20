@@ -17,6 +17,15 @@ def run_container(container_name, args="", sep=True):
     subprocess.call(command, shell=True)
 
 
+def connect_container(container_name, args="", command="", sep=True):
+    """ Connect to a given running container """
+    base_command = "docker exec " + args + " " + container_name + " " + command
+    if sep:
+        command = "gnome-terminal --command '" + base_command + "'"
+    else:
+        command = base_command
+    subprocess.call(command, shell=True)
+
 # pylint: disable=W0622, W0102
 def list_containers(filters=dict(), all=True):
     """ Return the conatiners on the machine """

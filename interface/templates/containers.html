@@ -38,10 +38,12 @@
           </div>
 
           <div class="column" style="width: 50%;">
-            <h3>Kill Container</h3>
-            <form action="/containers/kill" method="POST" name="Kill_Container">
-              <input name="kill_container_name" placeholder="Container Name">
-              <button>Kill Container</button>
+            <h3>Connect Container</h3>
+            <form action="/containers/connect" method="POST" name="connect_Container">
+              <input name="connect_container_name" placeholder="Container Name">
+              <input name="connect_container_args" placeholder="Container Args">
+              <input name="connect_container_command" placeholder="Container Command">
+              <button>Connect Container</button>
             </form>
           </div>
         </div>
@@ -60,6 +62,16 @@
             <form action="/containers/restart" method="POST" name="Restart_Container">
               <input name="restart_container_name" placeholder="Container Name">
               <button>Restart Container</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column" style="width: 50%;">
+            <h3>Kill Container</h3>
+            <form action="/containers/kill" method="POST" name="Kill_Container">
+              <input name="kill_container_name" placeholder="Container Name">
+              <button>Kill Container</button>
             </form>
           </div>
         </div>

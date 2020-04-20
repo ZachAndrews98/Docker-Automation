@@ -65,7 +65,8 @@ def list_images(name="", all=False):
     raw_images = CLIENT.images.list(name=name, all=all)
     images = list()
     for image in raw_images:
-        images.append(''.join(image.tags))
+        if image.tags is not None:
+            images.append(''.join(image.tags))
     if images != []:
         return images
     return None

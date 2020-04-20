@@ -16,6 +16,7 @@ COMMAND_LIST = [
     "push",
     "login",
     "restart",
+    "connect",
 ]
 
 
@@ -80,6 +81,14 @@ def repl():
                     containers.run_container(container_name, args=args)
                 else:
                     containers.run_container(container_name)
+
+        elif command[0] == "connect":
+            container_name = str(input("Container to connect to: "))
+            arguments = str(input("Arguments to pass: "))
+            command = str(input("Command to run: "))
+            containers.connect_container(
+                container_name, args=arguments, command=command
+            )
 
         elif command[0] == "delete":
             if len(command) < 2 or command[1] not in ("image", "container"):
