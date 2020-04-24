@@ -87,3 +87,12 @@ An additional way to interact with the tool is via command line arguments. Each 
 - `--stop`: Stop a running Container. Requires `--name` flag.
 
 - `--restart`: Restart a stopped or killed Container. Requires `--name` flag.
+
+
+#### Advanced Command Flags
+
+- `--no-install`: Skip the installation check/process.
+
+- `--threaded`: Do not run the program on a separate thread in the background.
+
+- `--sep`: Do not run the image in a new terminal window.

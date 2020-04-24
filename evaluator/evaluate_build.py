@@ -1,11 +1,10 @@
 """ Evalutate Build Commands """
 
-# import concurrent.futures
 import threading
 import time
 import os
 
-from auto import arguments, command_line
+from auto import arguments, command_line, images
 from evaluator import data
 
 
@@ -16,6 +15,7 @@ def threaded_evaluate_build_image(num_threads):
     tool_threads = list()
     term_threads = list()
     for threads in list(num_threads):
+        print("Running with " + str(threads) + " Threads")
         # pylint: disable=W0612
         for i in range(threads):
             tool_threads.append(threading.Thread(target=tool_build_image))
@@ -27,10 +27,11 @@ def threaded_evaluate_build_image(num_threads):
         for thread in tool_threads:
             thread.join()
         end_time = time.gmtime(time.time() - start_time).tm_sec
+
         data.TOOL_DATA["thread_build_image_times"].append(end_time)
-        data.TOOL_DATA['thread_build_image_ave'].append(sum(
-            data.TOOL_DATA["thread_build_image_times"]
-        ) / threads)
+        data.TOOL_DATA['thread_build_image_ave'].append(
+            data.TOOL_DATA["thread_build_image_times"][list(num_threads).index(threads)] / threads
+        )
 
         start_time = time.time()
         for thread in term_threads:
@@ -38,13 +39,15 @@ def threaded_evaluate_build_image(num_threads):
         for thread in term_threads:
             thread.join()
         end_time = time.gmtime(time.time() - start_time).tm_sec
+
         data.TERM_DATA["thread_build_image_times"].append(end_time)
-        data.TERM_DATA['thread_build_image_ave'].append(sum(
-            data.TERM_DATA["thread_build_image_times"]
-        ) / threads)
+        data.TERM_DATA['thread_build_image_ave'].append(
+            data.TERM_DATA["thread_build_image_times"][list(num_threads).index(threads)] / threads
+        )
 
         tool_threads.clear()
         term_threads.clear()
+        images.delete_image("test, test-1")
 
 
 def tool_build_image():
