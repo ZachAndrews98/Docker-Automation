@@ -69,11 +69,13 @@ def confirm_installation():
     """ Confirms if Docker was properly installed """
     installed = False
     try:
-        client = docker.from_env()
-        if client.containers.run("hello-world:latest", remove=True):
-            installed = True
-        client.images.remove("hello-wold:latest")
-        print("Installed:", installed)
+        version = os.system("docker --version")
+        if version != 32512:
+            client = docker.from_env()
+            if client.containers.run("hello-world:latest", remove=True):
+                installed = True
+            client.images.remove("hello-wold:latest")
+            print("Installed:", installed)
     except BaseException:
         pass
     return installed

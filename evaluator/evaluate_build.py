@@ -27,10 +27,12 @@ def threaded_evaluate_build_image(num_threads):
         for thread in tool_threads:
             thread.join()
         end_time = time.gmtime(time.time() - start_time).tm_sec
-
+        print(end_time)
         data.TOOL_DATA["thread_build_image_times"].append(end_time)
         data.TOOL_DATA['thread_build_image_ave'].append(
-            data.TOOL_DATA["thread_build_image_times"][list(num_threads).index(threads)] / threads
+            data.TOOL_DATA["thread_build_image_times"][
+                list(num_threads).index(threads)
+            ] / threads
         )
 
         start_time = time.time()
@@ -42,7 +44,9 @@ def threaded_evaluate_build_image(num_threads):
 
         data.TERM_DATA["thread_build_image_times"].append(end_time)
         data.TERM_DATA['thread_build_image_ave'].append(
-            data.TERM_DATA["thread_build_image_times"][list(num_threads).index(threads)] / threads
+            data.TERM_DATA["thread_build_image_times"][
+                list(num_threads).index(threads)
+            ] / threads
         )
 
         tool_threads.clear()
