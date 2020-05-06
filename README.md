@@ -13,7 +13,7 @@ though there is hypothetical support for CentOS, Debian, Fedora, and MacOS.
 In order to install this program there are several requirements that must be
 met which are listed below.
 
-- Python (3.6 or up)
+- Python (3.7 or up)
 - Pipenv (Handles required packages)
 
 Once the requirements have been met, this tool can be installed by cloning the
