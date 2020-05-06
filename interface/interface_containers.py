@@ -45,8 +45,6 @@ def connect_container():
     command = request.form['connect_container_command']
     if args != "":
         containers.connect_container(container_name, args=args, command=command)
-    # else:
-    #     containers.connect_container(container_name)
     return redirect(url_for("containers_app.container"))
 
 

@@ -1,8 +1,8 @@
 """ Evaluation Data Management """
 
 import matplotlib.pyplot as plt
-# import numpy as np
 
+# Store tool data
 TOOL_DATA = {
     "build_image_times": [],
     "build_image_ave": 0,
@@ -16,6 +16,7 @@ TOOL_DATA = {
     "thread_hello_world_threads": [],
 }
 
+# Store terminal data
 TERM_DATA = {
     "build_image_times": [],
     "build_image_ave": 0,
@@ -29,6 +30,7 @@ TERM_DATA = {
     "thread_hello_world_threads": [],
 }
 
+# Store generator data
 GENERATE_DATA = {
     "output": [],
     "num_tests": 0,
@@ -127,6 +129,7 @@ def write_data():
 
 def plot_data():
     """ Plot Data within Dictionaries """
+    # Hello World run time plot
     fig1, ax1 = plt.subplots()
     fig1.suptitle("Run Times for Hello World Run")
     ax1.set_xlabel("Test Number")
@@ -163,6 +166,7 @@ def plot_data():
 
     ax1.legend()
 
+    # Image Build run time plot
     fig2, ax2 = plt.subplots()
     fig2.suptitle("Run Times for Image Building")
     ax2.set_xlabel("Test Number")
@@ -199,6 +203,7 @@ def plot_data():
 
     ax2.legend()
 
+    # Threaded Hello World run time plot
     fig3, ax3 = plt.subplots()
     fig3.suptitle("Run Times for Threaded Hello World Run")
     ax3.set_xlabel("Number of Simulataneous Runs")
@@ -243,6 +248,7 @@ def plot_data():
 
     ax3.legend()
 
+    # Threaded Image Build run time plot
     fig4, ax4 = plt.subplots()
     fig4.suptitle("Run Times for Threaded Image Building")
     ax4.set_xlabel("Number of Simulataneous Builds")

@@ -1,1 +1,0 @@
-""" Evaluate Docker Installation """

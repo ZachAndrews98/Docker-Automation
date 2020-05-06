@@ -11,14 +11,19 @@ PLATFORM = platform.system()
 
 def install():
     """ Main installation function """
+    # If docker does not appear to be installed
     if not confirm_installation():
+        # Linux based platform
         if PLATFORM == "Linux":
             # pylint: disable=W1505
             distro = platform.linux_distribution()
+        # MacOS based platform (not confirmed to work)
         elif PLATFORM == "MacOS":
             distro = ("MacOS", "", "")
+            print("Mac OS currently experimental")
+        # Windows based platform (Not currently operational)
         elif PLATFORM == "windows":
-            pass
+            return "Windows currently not supported"
             # TODO: figure out method to determine home vs pro
         file = get_instructions(distro)
         if file != "No Instruction Set":
@@ -36,15 +41,15 @@ def get_instructions(distro):
     """ Determines what instruction set is required to install Docker """
     file = ""
     if distro[0] == "Ubuntu":
-        file = "./instructions/ubuntu"
+        file = os.getenv('HOME') + "/Docker-Automation/instructions/ubuntu"
     elif distro[0] == "CentOS":
-        file = "./instructions/centos"
+        file = os.getenv('HOME') + "/Docker-Automation/instructions/centos"
     elif distro[0] == "Debian":
-        file = "./instructions/debian"
+        file = os.getenv('HOME') + "/Docker-Automation/instructions/debian"
     elif distro[0] == "Fedora":
-        file = "./instructions/fedora"
+        file = os.getenv('HOME') + "/Docker-Automation/instructions/fedora"
     elif distro[0] == "MacOS":
-        file = "./instructions/macos"
+        file = os.getenv('HOME') + "/Docker-Automation/instructions/macos"
     else:
         file = "No Instruction Set"
     return file
@@ -69,8 +74,11 @@ def confirm_installation():
     """ Confirms if Docker was properly installed """
     installed = False
     try:
+        # Try to get docker version
         version = os.system("docker --version")
+        # If version exists
         if version != 32512:
+            # Try to run hello-world image
             client = docker.from_env()
             if client.containers.run("hello-world:latest", remove=True):
                 installed = True

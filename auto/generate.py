@@ -3,8 +3,10 @@
 import os
 import re
 
+# File check regex
 FILE_REGEX = r'^[a-zA-Z0-9_]+\.[a-zA-Z0-9]+$'
 
+# Dictionary of file type to required install
 FILE_TYPES = {
     "py": "python3",
     "java": "default-jdk",
@@ -20,11 +22,14 @@ FILE_TYPES = {
 def get_file_types(directory):
     """ grabs the filetypes in a directory based on file extension """
     filetypes = set()
+    # Go through all files and folders in directory
     for _, _, files in os.walk(os.getenv('HOME') + "/" + directory):
-        # print(files)
+        # Get the name of each file in the directory
         for name in files:
+            # Check each name against regex
             if re.match(FILE_REGEX, name):
                 print(name)
+                # Add filetype extension to set
                 ext = name.split('.')[1]
                 if ext not in filetypes:
                     filetypes.add(ext)

@@ -29,15 +29,19 @@ def push_image(image_name, tag):
 
 def build_image(directory, image_name, threaded=True):
     """ Builds an image based on the path to a Dockerfile """
+    # Home folder based path to directory
     directory = os.getenv('HOME') + "/" + directory
+    # Checks that the directory is valid
     if os.path.exists(directory + "/Dockerfile"):
         print("Building Image. This may take a while")
+        # Threaded building of image
         if threaded:
             thread = threading.Thread(
                 target=build_thread, args=(directory, image_name)
             )
             thread.start()
             return True
+        # Nonthreaded building of image
         build_thread(directory, image_name)
         return True
     print("No Dockerfile found in " + directory)
