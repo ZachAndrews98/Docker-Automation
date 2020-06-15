@@ -1,0 +1,48 @@
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+\SetKwProg{Fn}{Function}{}{end}
+\Fn{install()}{
+  \Output{A message of if Docker is properly installed}
+  $OS\leftarrow$platform.system() \\
+  \uIf{OS == Linux}{
+    $distro\leftarrow$platform.linux\_distribution()
+  }
+  \uElseIf{OS == Mac OS}{
+    $distro\leftarrow$MacOS
+  }
+  \uElseIf{OS == Windows}{
+    $distro\leftarrow$Windows
+  }
+  $file\leftarrow$get\_instructions($distro$)\\
+  execute\_instructions($file$)
+}
+\SetKwProg{Fn}{Function}{}{end}
+\Fn{get\_instructions($distro$)}{
+  \Input{$distro\leftarrow$ The name of the instruction set to load}
+  \Output{$file\leftarrow$ Filepath to the corresponding instruction set for $distro$}
+  \If{$distro$ == distro\_name}{
+    $file\leftarrow$ $file\_path$
+  }
+  return $file$
+}
+\SetKwProg{Fn}{Function}{}{end}
+\Fn{execute\_instructions($file$)}{
+  \Input{$file$: The path to the instruction set for the host machine}
+  \Output{True or False, corresponding to if there are any issues faced during command execution}
+  $commands\leftarrow$open($file$, \'r\')
+  \For{$command$ in $commands$}{
+    os.system($command$)
+    \If{Issue faced}{
+      return $False$
+    }
+  }
+  return $True$
+}
+\Fn{confirm\_installation()}{
+  $installed\leftarrow$ $False$ \\
+  docker run $hello-world$ \\
+  \If{No Issues}{
+    $installed\leftarrow$ $True$
+  }
+  return $installed$
+}

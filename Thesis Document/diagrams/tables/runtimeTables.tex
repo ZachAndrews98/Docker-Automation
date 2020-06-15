@@ -1,0 +1,55 @@
+\begin{table}[h!]
+\begin{tabular}{llllll}
+Test Number & Test Type & \multicolumn{4}{l}{HELLO WORLD EVALUATION DATA}  \\
+5           & Tool      & Times & 2, 1, 1, 1, 1                & Ave & 1.2 \\
+            & Terminal  & Times & 1, 1, 1, 1, 1                & Ave & 1.0 \\
+6           & Tool      & Times & 2, 1, 1, 1, 1, 1, 1, 1, 1, 1 & Ave & 1.1 \\
+            & Terminal  & Times & 1, 1, 1, 2, 1, 1, 1, 2, 1, 1 & Ave & 1.2 \\
+7           & Tool      & Times & 2, 1, 2, 1, 1, 1, 1, 1, 1, 2 & Ave & 1.3 \\
+            & Terminal  & Times & 1, 1, 2, 1, 2, 1, 2, 1, 1, 1 & Ave & 1.3
+\end{tabular}
+\caption{Hello World Evaluation Data}
+\label{tab:helloWorld}
+
+
+\begin{tabular}{llllll}
+Test Number  & Test Type  & \multicolumn{4}{l}{THREADED HELLO WORLD EVALUATION DATA}            \\
+5            & Tool       & Times  & 2, 5, 11, 15  & Aves  & 2.0, 1.4, 1.8, 2.2                 \\
+             & Terminal   & Times  & 1, 5, 10, 15  & Aves  & 1.0, 1.2, 1.6, 2.066666666666667   \\
+6            & Tool       & Times  & 2, 5, 10, 16  & Aves  & 2.0, 1.4, 1.7, 2.2                 \\
+             & Terminal   & Times  & 1, 5, 10, 16  & Aves  & 1.0, 1.2, 1.6, 2.1333333333333333  \\
+7            & Tool       & Times  & 1, 5, 10, 23  & Aves  & 1.0, 1.2, 1.6, 2.6                 \\
+             & Terminal   & Times  & 1, 5, 10, 25  & Aves  & 1.0, 1.2, 1.6, 2.7333333333333334  \\
+\multicolumn{6}{l}{Note: Tests used the following number of threads for operations: 1, 5, 10, 15}
+\end{tabular}
+\caption{Threaded Hello World Evaluation Data}
+\label{tab:threadHello}
+
+
+\begin{tabular}{llllll}
+Test Number & Test Type & \multicolumn{4}{l}{IMAGE BUILDING EVALUATION DATA}          \\
+5           & Tool      & Times & 54, 41, 41, 40, 38                     & Ave & 42.8 \\
+            & Terminal  & Times & 45, 42, 40, 41, 40                     & Ave & 41.6 \\
+6           & Tool      & Times & 53, 46, 40, 39, 39, 42, 40, 40, 39, 38 & Ave & 41.6 \\
+            & Terminal  & Times & 48, 42, 40, 39, 40, 40, 39, 41, 38, 39 & Ave & 40.6 \\
+7           & Tool      & Times & 0, 46, 43, 42, 41, 41, 43, 40, 41, 42  & Ave & 37.9 \\
+            & Terminal  & Times & 53, 46, 41, 41, 40, 41, 41, 40, 39, 39 & Ave & 42.1
+\end{tabular}
+\caption{Image Building Evaluation Data}
+\label{tab:imageBuild}
+
+
+\begin{tabular}{llllll}
+Test Number  & Test Type  & \multicolumn{4}{l}{THREADED IMAGE BUILDING EVALUATION DATA}         \\
+5            & Tool       & Times  & 40, 0, 0, 1  & Aves  & 40.0, 8.0, 4.0, 2.7333333333333334  \\
+             & Terminal   & Times  & 44, 0, 1, 2  & Aves  & 44.0, 8.8, 4.5, 3.1333333333333333  \\
+6            & Tool       & Times  & 40, 0, 0, 1  & Aves  & 40.0, 8.0, 4.0, 2.7333333333333334  \\
+             & Terminal   & Times  & 42, 1, 1, 1  & Aves  & 42.0, 8.6, 4.4, 3.0                 \\
+7            & Tool       & Times  & 40, 0, 0, 1  & Aves  & 40.0, 8.0, 4.0, 2.7333333333333334  \\
+             & Terminal   & Times  & 40, 0, 1, 2  & Aves  & 40.0, 8.0, 4.1, 2.8666666666666667  \\
+\multicolumn{6}{l}{Note: Tests used the following number of threads for operations: 1, 5, 10, 15}
+\end{tabular}
+\caption{Threaded Image Building Evaluation Data}
+\label{tab:threadBuild}
+
+\end{table}

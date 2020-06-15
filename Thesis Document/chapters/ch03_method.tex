@@ -1,0 +1,106 @@
+\chapter{Method of Approach}
+\label{ch:method}
+
+This chapter will focus on the implementation of the software tool initially proposed in Chapter \ref{ch:intro}. The overall software is composed of three separate tools, an installer, an interface, and a Dockerfile generator. The primary language used for this project is Python due to packages available within Python and the ease to add and import external packages. Two main packages are being utilized for the creation of the tool which is the Docker Python \cite{dockerPython} wrapper for interacting with Docker and Flask \cite{flask} for building the browser-based interface.
+
+\break
+
+% This chapter should answer the ``how'' question - how did you complete your project, including the overall design of your study, details of the algorithms and tools you have used, etc.
+%  Use technical diagrams, equations, algorithms, and paragraphs of text to
+% describe the research that you have completed. Be sure to number all figures and tables and to explicitly refer to them in your text.
+
+The software tool, that I have developed, as previously mentioned has three main components. The Docker Installer, the Interface, and the Dockerfile Generator. Each of these components works together to ensure optimum user experience. The installer ensures that the user will be able to properly use Docker, the Interface, and the Dockerfile Generator. The Interface allows the user to easily use the Dockerfile Generator and interact with the more common Docker commands. The Dockerfile Generator allows the user to easily create Docker images that the Interface can run. The overall file structure of the tool can be seen in Figure \ref{fig:fileStruct} below.
+
+\begin{figure}[h!]
+  \input{diagrams/fileStructure}
+  \caption{Docker Automation File Structure}
+  \label{fig:fileStruct}
+\end{figure}
+
+% \break
+
+\section{Utilized Tools}
+\label{sec:tools}
+
+To develop this tool, as previously mentioned, I utilized several APIs and packages. The first and one of the most important of these was the Python Docker API which gave access to Docker commands within Python programs. This process could have been performed in other ways, like executing each command via the Python OS package, however, this method did not have a guarantee to work on every operating system due to differences in how Docker operates on each.
+
+The next most important package utilized was Python Flask \cite{flask}. This package allows for the creation of webpages utilizing endpoints for executing different functions. This package was utilized to create the user interface due to web browsers being more universal on different operating systems. Another advantage of utilizing Flask is that it also creates the web server in which the interface is run on. This decreases the number of required packages for the overall software tool.
+
+An additional tool that was used is Pipenv \cite{pipenv}. This was used for its ability to manage the required packages and environment setup. Pipenv is similar to Python's Pip package manager, which was initially used before switching to Pipenv. This switch was made for a variety of reasons the first of which was its inclusion of a virtual environment for development. The second reason was due to its built-in requirements manager. This came in the form of Pipfiles which keep track of each package that is installed. This method is far more desirable rather than Pip's requirements.txt format of keeping track of requirements due to the automation of its creation.
+
+The final tool that was utilized was Pytest \cite{pytest}, a package that can be used to write helpful test cases which can ensure that a program is functioning correctly even after changes to the code. This tool was useful to a degree in ensuring that different functions were still generating the expected output or results, though in some cases tests were not entirely feasible or convenient. However, Pytest was very useful after refactoring the basic code for the different utilities as there were several times in which certain functions were not tested by myself and as a result, any issues with them went unnoticed. With the addition of utilizing Travis-CI, a continuous integration service, these tests were run each time changes were made within the repository of the tool and ensured that any issues were quickly identified and fixed.
+
+\section{Installer}
+\label{sec:installer}
+
+The Installer has multiple procedures it runs to ensure that Docker will successfully install on a given machine. The first procedure that is run is determining the operating system that the machine is running. For this, I utilized a python package called Platform, which has many useful methods for retrieving system information, like the operating system type. Once the operating system is determined the next step is to figure out the exact version that is being run. This is more important for operating systems like Linux and Windows than with Mac OS due to the different versions of each of those systems having different installation requirements and commands.
+
+Once the specific version, or in the case of Linux based systems Distribution, has been determined the next step is to load and run the installation instructions. As of writing this the only instruction sets that have been tested and verified to work correctly are the Linux based systems, ie Ubuntu, Fedora, Debian, and CentOS. Instruction sets do exist for Windows and Mac OS, however, these platforms have not yet been tested due to focusing on ensuring that other portions of the system were properly working for Linux systems.
+
+Once the instruction set is loaded each command is then run utilizing Python's built-in OS package and the system method. This method allows for a Python script to run commands on the machine outside of Python. Once this step has been completed the installer will then execute a simple Docker command to test if the installation was a success or not. The chosen command is 'Docker run hello-world', which not only checks if Docker has been installed correctly but also if the machine can retrieve images from external sources.
+
+The overall installation described below can be seen in figure \ref{fig:install}, which generalizes the installation process down to its core elements. The pseudocode for the installation process can also be seen in Algorithm \ref{alg:install}. The installation process utilizes three main functions that perform different steps to aid the installation process. The main function, install, handles the back and forth between the two other functions, get\_instructions and execute\_instructions. Install also handles determining the operating system, and if necessary the distribution. This information is passed to get\_instructions which maps the operating system to a corresponding instruction set file path. This path is then passed to execute\_instructions which loads the instruction set and executes each command. If there are no issues in execution, the function returns True, however, if any issues are faced it returns False. After this a final function, confirm\_installation, is called to ensure that Docker has been installed. This is performed by simply running the Docker hello\-world image and checking if any errors are raised upon attempting to do so.
+
+
+\begin{figure}[h!]
+  \centering
+  \input{diagrams/docker-installer}
+  \caption{Automated Docker Installation Process}
+  \label{fig:install}
+\end{figure}
+
+\begin{algorithm}[H]
+  \input{diagrams/installerCode}
+  \caption{Installation Algorithm Pseudo Code}
+  \label{alg:install}
+\end{algorithm}
+
+
+\section{Interface}
+\label{sec:interface}
+
+The goal of the interface is to streamline the user experience interacting with the more common Docker elements like running and deleting both Docker containers and Docker images. Another goal is to have the interface be visually appealing to allow for extended use of the interface.
+
+The Interface itself utilizes a combination of HTML, CSS, JavaScript, and the Python Flask \cite{flask} framework to create the interface as a webpage that can be viewed in any web browser. This switch from utilizing a direct GUI package as described in the Proposal is due in part to the goal of ensuring that this system will be able to work with nearly every operating system. An additional reason for the switch between a dedicated GUI and Flask is the ease of developing the interface itself. With many of the GUI packages, I researched the level of customization and design was not very high, added to this was the level of difficulty that I would have faced trying to get every element to work properly and be located within the correct area.
+
+The Interface is broken up into several different pages for the different types of functions. The first page is for functions dedicated to the creation, management, and running of Docker images. This includes a function to generate a Dockerfile for a given directory utilizing the Dockerfile Generator tool included. The next page is for functions dedicated to the creation, management, and running of Docker containers. For each page, the different functions utilize forms to submit any required information to the Flask endpoints utilizing Post methods. There is also a button on the sidebar which allows the user to shut down the tool from the interface. Images of the two main pages of the Interface, one for Images and the other for Containers can be seen below in image \ref{img:ImagesPage}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=5in]{images/InterfaceImages}
+  \caption{Interface Images Page}
+  \label{img:ImagesPage}
+\end{figure}
+
+Other than the visual interface there is also a command-line that can be used to interact with Docker. This aspect was included for cases where a browser-based interface may not be practical or necessary. It was also created to test functions as they were developed and instead of removing it was integrated into the overall tool. The command line has all of the same functions as the interface and can be more responsive due to not having to wait for a page to finish loading in the browser.
+
+
+\section{Generator}
+\label{sec:generator}
+
+The Dockerfile Generator relies on several assumptions to work properly. These assumptions do not necessarily hurt the user's experience though with more advanced users of Linux could, in theory, have some sort of effect. The first assumption that the generator makes is that after being pointed to a directory on the host machine that the user would like to make it so that every program file within the directory is runnable. This assumption is made to decrease the number of choices that the user has to make and in doing so has a higher degree of automation for the process. Another assumption made in this regard is that if a user has multiple types of programs in the same file, they will at some point want to run each of those program files.
+
+The next assumption that the Generator makes is that the user will not care what distribution of Linux the image is built on top of. The image the Dockerfile and the subsequent image is based on is Debian:Bullseye, which like Ubuntu, the Linux distro that I am most familiar with, uses the Apt package manager. This assumption is currently hardcoded into the Dockerfile Generator, though in the future it could be possible to modify the Generator to allow further customization of which distribution the image is based on.
+
+The hard coding of the distribution used for the Generator is what ensures that the generator knows what package to download and install for each language. This is necessary due to there not being a default naming scheme across package managers, nor a centralized list of available packages for every programming language and package manager. As of February 28th, the Generator supports the installation of several programming languages. This list consists of Python, Java, Ruby, C, C\#, Go, JavaScript (Node.js), though adding new languages is easy to do.
+
+\begin{figure}[h!]
+  \centering
+  \input{diagrams/dockerfile-generator}
+  \caption{Dockerfile Generation Process}
+  \label{fig:generator}
+\end{figure}
+
+\begin{algorithm}[H]
+  \input{diagrams/generatorCode}
+  \caption{Generator Algorithm Pseudocode}
+  \label{alg:generate}
+\end{algorithm}
+
+The Generator itself works by scanning the inputted directory for files. Each file is then checked for a filetype. This is where the third main assumption is made, the Generator currently assumes that every program file utilizes a standard file extension to denote its language. In other words, Python files end with .py (and are written in Python3, though due to an upcoming depreciation of Python2 is not an invalid assumption) and Java files end with .java. This assumption is not necessarily bad, though having methods that analyze the contents of the file, especially in the case of there not being a file extension, would be greatly beneficial to the Generator.
+
+As each file is checked the file extension is added to a set which ensures that there are no duplicate installs written into the Dockerfile. Once all files within the directory have been analyzed, the resulting filetypes set is then compared against a dictionary of known packages and each language that is found is written into the Dockerfile to be installed on the image. This overall process is illustrated in figure \ref{fig:generator} and the pseudocode for this process can be seen in Algorithm \ref{alg:generate} and a more detailed explanation of the process can be read in the following paragraph.
+
+To identify programming languages used within a folder, I utilized the built-in OS package of Python, specifically the walk() method. This method is then supplied the path to the folder from the Home directory and returns a tuple containing the directory path, directory names, and files names within that folder. This information is reduced down to just the file names as the directory path and names are not pertinent to this operation. To ensure that the files being checked are only program files the names are passed through a regex (r'\textasciicircum[a-zA-Z0-9\_]+\textbackslash.[a-zA-Z0-9\_]+\$'). This process allows for letters and numbers as well as other special characters, but requires that there is a file type extension that can be extracted. The file types are then collected by splitting the file names and adding the resulting extension to a Set. Finally, the set is compared to a known list of file type extensions stored within a dictionary to determine the required packages for installation.
+
+The information given above in section \ref{sec:tools} through section \ref{sec:generator} provide a look into the lower level of how the tool works to accomplish the goal presented in the Thesis Outline \ref{sec:outline}. How well the tool accomplishes this will be discussed within the Experimental Results section \ref{ch:experiments}.

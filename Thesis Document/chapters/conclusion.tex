@@ -1,0 +1,74 @@
+\chapter{Discussion and Future Work}
+\label{ch:conclusion}
+
+% This is the conclusion. You might want to leave it unnumbered, as it is now. If you want to number it, treat it like any other chapter.
+%
+% This chapter usually contains the following items, although not
+% necessarily in this order or sectioned this way in particular.
+
+This chapter will provide a conclusion of the overall project. This conclusion will be drawn from what has been discussed in previous chapters and the summaries of the different components of the project which can be read below in the Summary of Results section \ref{sec:summary}. Also included in this chapter will be a discussion of what work will and could be done in the future. This section like the Summary of Results is split up into subsections for each of the three main components of the overall tool.
+
+\break
+
+\section{Summary of Results}
+\label{sec:summary}
+% A discussion of the significance of the results
+% and a review of claims and contributions.
+
+The overall goal of the tool which I developed was to streamline the process by which a user installs and interacts with components of Docker. To do this I developed a three-part software tool that can install Docker automatically, generate Dockerfiles, and has a straight forward user interface. A summary of the success of each of these components can be read in the following subsections of this chapter and have been broken up into their components.
+
+\subsection{Results of Installer}
+\label{sec:installerResults}
+
+The Installer can successfully identify the operating system and version/distribution that is being run. This property works for each of the major Linux distributions that have installation steps listed on Docker's website. However, as discussed within the Threats to Validity \ref{sec:threats}, this portion is not verified to work with any other operating system. Unfortunately, this does not meet the initial goal of the Installer, which was to be able to work on each of the major operating systems. Despite not being verified, the instructions for these operating systems doe exist within the instructions folder of the tool and can be verified at a later date.
+
+However, even if the full installer is not functional, it still illustrates how such a system could be developed. It can handle the installation of software on four (at least) different operating systems, all with different instructions. This is all handled by a single file within the tool, so it is not a complex system either. As such, making improvements upon this system would be very easy to, though that will be discussed more in the Future Work section \ref{sec:installerImprove}.
+
+\subsection{Results of Generator}
+\label{sec:generatorResults}
+
+The Generator can be given the path to a folder anywhere on the host machine and then analyzes the contents of it for program files. This information is then passed along and used to determine what needs to be installed in the image. The image itself is based on Debian Bullseye which uses the Apt package manager and as a result utilizes Apt packages when installing the requirements for each language. The decision to use Debian as a base arose from my familiarity with Apt from using Ubuntu, so using Debian which used the same package manager as Ubuntu seemed like a logical choice. This process enables the Generator to correctly build images that can run a variety of different programs ranging from Python to C. This list of languages, which will be discuessed in the future work section \ref{sec:generatorImprove}, is currently limited and not overly complicated. However, having a system which can automatically look at a folder and create an image specific to its needs is a large contribution and not something that necessarily exists.
+
+
+\subsection{Results of Interface}
+\label{sec:interfaceResults}
+
+The Interface is simple in design and offers access to the core functionalities of Docker. These functions include building, running, and deleting both Docker images and containers along with several other functions that a user may find helpful. All images and containers are listed at the top of the pages for the user to quickly and easily identify what image or container they would like to run. The functionalities for images and containers are split onto separate pages to allow for more streamlined use and to eliminate possible confusion between the two. The Interface is able to work on any device with a web browser since it utilizes Python Flask to create a web page that acts as the Interface. This allows for the Interface to have no kinds of platform specifity, if the device can run Python programs and has even the most basic web browser it can use the Interface. This all being said there are improvements that need to be made to the Interface which will be discussed in greater detail in the future work section \ref{sec:interfaceImprove}
+
+
+\section{Future Work}
+\label{sec:future}
+
+As the tool is right now, it is unfinished. Some of the work that needs to be done, I will be doing after the initial draft of this full document is due. However, some improvements can be made which I simply will not have the time to do myself before the final code is due. Like above I have divided this section into subsections to properly talk about each component separately.
+
+\subsection{Installer Improvments}
+\label{sec:installerImprove}
+
+Many improvements can be made to the Installer, the main one being verified support for both versions of Windows and Mac OS. Other than this there are several other improvements which can be made, which I hope to do in the future.
+
+The main improvement I hope to make is to get a more concise installer. What I mean by this is to try and have less generalization between operating systems and have specialized processes that can ensure proper installation and testing of the installation. As it currently stands the method of verifying that Docker is properly installed is to simply run the hello-world image that Docker provides. However, this does not necessarily ensure that Docker is fully working. In the past, I have installed Docker myself, before I started developing the Installer, and was able to run the hello-world image. Unfortunately, for some reason, I was unable to run any other commands. I was able to fix the issue, but that process involved uninstalling and then reinstalling Docker and ensuring that my user was properly set up to use it.
+
+\subsection{Generator Improvments}
+\label{sec:generatorImprove}
+
+The Generator, as it is right now, is very simple. This was a slightly conscious decision to present the user with fewer choices and make the process simpler. However, this lack of choice is slightly constraining and is something I would like to change in the future. The main aspect I would like to change would be to allow for a user to specify the Linux distribution they would like to use as a base for the image that would be generated from the Dockerfile. This is something which I believe would not be very hard to develop, but would require a fair amount of thought when it comes to structuring the lookup for packages for different programming languages.
+
+Another improvement comes in the form of the contents of the Dockerfile. As it is right now each Dockerfile, for the most part, is the same with the only points of possible difference being between what gets installed and where the files get placed in the running image. While this provides a good learning platform for writing custom Dockerfiles, utilizing the tool for this customization is something that I would like to add. Like the above improvement this is something which complexity wise would be rather simple, but making the process simple and straight forward for a user would be rather complex.
+
+The final improvement I would like to make to the Generator is to improve how it identifies what programming languages are within a folder. Currently, the Generator simply looks at the filetype extension, however, this method is not perfect and does not cover all possibilities for program files. There are several other methods of identifying programming languages and this process would likely take a large amount of inspiration from the methods in which Github's linguist can identify programming languages. Unfortunately, the linguist only works within repositories and can not be utilized directly for this project. The other issue with utilizing the linguist is that it is written primarily in Ruby, not Python which was used for this project. So I would have to develop a system that mirrors Github's linguist in Python, which would take some time to get it to work properly.
+
+\subsection{Interface Improvments}
+\label{sec:interfaceImprove}
+
+There are a lot of improvements which can be made to the Interface. Right now it is very simple with only three main pages, the landing page, the Images page, the Containers page, in addition to a help page.
+
+The first improvement is probably the largest and most time-consuming. This improvement is an overhaul to the Interface to make it more user friendly and aesthetically pleasing. While the Interface is currently not horrible, there is a lot of room for improvement to how information is presented. Some components do not look quite right with the current layout and some issues with aspects of the Interface not behaving perfectly when there is a large amount of information on the screen. There is also some improvement that can be made to the backend Flask components to streamline the entire web server and make running the Interface more efficient.
+
+The next improvement is to get a working terminal window integrated directly into the Interface. This improvement is something that was being worked on for a time and would have utilized Xterm.js \cite{xterm} which is a TypeScript plugin for websites that can be used to host a terminal in a web page. However, due to a lack of knowledge in the area of TypeScript, I was unable to integrate it. This improvement would mainly be for consolidating all aspects of the tool into the Interface as all components still work properly when using the Interface.
+
+The final improvement that can be made is to have more functionalities of Docker on the Interface. Currently, the functions are limited to the most basic and common operations like running an image. However, there are functions of Docker which may be helpful for users to have access to when their knownledge of Docker advances. This includes functions like creating Docker volumes and showing what containers are running and what port it is running on. These kinds of improvements would allow for the tool to help a user grow in respect to their knowledge of Docker functions, but come secondary to improvements to some of the core components listed above.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+As the tool exists right now it fulfills much of what I sent out to accomplish. It can properly identify and install the correct version of Docker onto a computer. Currently, this is limited to the Linux versions of Docker, but as discussed in the Installer Improvements section \ref{sec:installerImprove} is something which I hope to expand upon in the future. The Generator successfully creates Dockerfiles based off of a given folder with program files stored within. There are improvements like those mentioned previously \ref{sec:generatorImprove} which I would like to make but overall it meets all of the goals I set for it when creating this project. The Interface allows the user to interact with Docker without having to know how to use every command that Docker has. This can allow for the time to execute any commands to be cut down in comparison to running commands through the terminal. This is is supported by the overall similar average run times when running identical commands between the tool and the Terminal. However, like the other two components of the tool, some improvements can be made as previously mentioned \ref{sec:interfaceImprove}. All of these improvements would serve to elevate the tool to a higher state which would only serve as improvements to an already helpful system.

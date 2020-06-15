@@ -1,0 +1,27 @@
+\begin{lstlisting}[language=bash, caption=Dockerfile Generator Evaluation Script, label=alg:bashScript]
+#!/bin/bash
+success=0
+NUMTESTS=1
+SUCCESS_STRING="Success: "
+FAIL_STRING="FAIL: "
+go build goTest.go
+if ./goTest | grep -q 'Hello, World!'; then
+  SUCCESS_STRING+="Go "
+  ((success=success+1))
+else
+  FAIL_STRING+="Go "
+fi
+rm goTest
+if [[ $1 == "-v" ]] || [[ $1 == "--verbose" ]]; then
+  echo $SUCCESS_STRING
+  echo $FAIL_STRING
+fi
+if [[ $success == $NUMTESTS ]]; then
+  echo "All Tests Passed, Image is Correct"
+  exit 0
+else
+  echo "Tests Failed, Image is Incorrect"
+  exit 1
+fi
+\end{lstlisting}
+% \label{}

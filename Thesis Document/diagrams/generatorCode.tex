@@ -1,0 +1,26 @@
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+\SetKwProg{Fn}{Function}{}{end}
+\Fn{generate\_dockerfile($directory$, $to\_dir$ \= "project/")}{
+  \Input{The directory to generate the Dockerfile for and optionally where to place the files to be run in the container}
+  \Output{A Dockerfile which installs all required languages}
+
+  $FILE\_TYPES\leftarrow$Dictionary of langauge packages and language extensions
+
+  $extensions\leftarrow$get\_file\_types($directory$) \\
+  \For{$ext$ in $extensions$}{
+    $installs$ += FILE\_TYPES[$ext$]
+  }
+  Write Dockerfile with included $installs$
+}
+
+\SetKwProg{Fn}{Function}{}{end}
+\Fn{get\_file\_types($directory$)}{
+  \Input{The directory to analyze for file types}
+  \Output{A Set of filetypes extensions found in $directory$}
+  $filetypes\leftarrow$Set\\
+  \For{file in $directory$}{
+    $filetypes\leftarrow$file extension
+  }
+return $filetypes$
+}
